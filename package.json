@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Lint touched code stricter",
   "main": "./lib",
-  "bin": "./steering",
+  "bin": "./steering.js",
   "scripts": {
     "test": "nyc ava"
   },
