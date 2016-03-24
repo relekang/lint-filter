@@ -1,11 +1,11 @@
 {
   "name": "@relekang/steering",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lint touched code stricter",
   "main": "./lib",
   "bin": "./steering.js",
   "scripts": {
-    "prepublish": "babel src -o lib",
+    "prepublish": "babel src -d lib",
     "test": "nyc ava"
   },
   "repository": {
