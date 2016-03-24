@@ -5,11 +5,10 @@ import inRange from 'in-range'
 
 const exec = Promise.promisify(cp.exec)
 
-const expression = /\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g
 export function parseDiffRanges(diff) {
-  const matches = diff.match(expression)
+  const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
   if (!_.isEmpty(matches)) {
-    return matches.map(match => expression.exec(match).slice(1, 3))
+    return matches.map(match => /\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/.exec(match).slice(1, 3))
   }
   return null
 }

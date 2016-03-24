@@ -24,6 +24,7 @@
     "commander": "^2.9.0",
     "in-range": "^1.0.0",
     "nodegit": "^0.11.9",
+    "stdin": "0.0.1",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {

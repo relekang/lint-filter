@@ -1,7 +1,8 @@
 import program from 'commander'
+import stdin from 'stdin'
 
 import info from '../package.json'
-import { checkFiles } from './checks'
+import { checkFiles, checkString } from './checks'
 
 export default function main() {
   program
@@ -10,11 +11,16 @@ export default function main() {
     .parse(process.argv)
 
   if (program.args.length === 0) {
-    console.error('Reading from stdin is not supported yet') // eslint-disable-line no-console
-    process.exit(1)
+    return new Promise(resolve => stdin(resolve))
+      .then(checkString)
+      .then(result => {
+        if (result.indexOf(true) >= 0) {
+          console.error('This seems to be your doing') // eslint-disable-line no-console
+        }
+      })
   }
 
-  checkFiles(program.args, program)
+  return checkFiles(program.args, program)
     .then(result => {
       if (result.indexOf(true) >= 0) {
         console.error('This seems to be your doing') // eslint-disable-line no-console
