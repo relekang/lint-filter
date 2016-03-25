@@ -18,6 +18,9 @@ export default function main() {
           console.error('This seems to be your doing') // eslint-disable-line no-console
         }
       })
+      .catch(error => {
+        throw error
+      })
   }
 
   return checkFiles(program.args, program)
