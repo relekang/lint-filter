@@ -21,6 +21,15 @@
     "url": "https://github.com/relekang/steering/issues"
   },
   "homepage": "https://github.com/relekang/steering#readme",
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "babel": "inherit",
+    "require": [
+      "babel-register"
+    ]
+  },
   "dependencies": {
     "babel": "6.5.2",
     "babel-core": "6.7.4",
@@ -32,9 +41,11 @@
     "xml2js": "0.4.16"
   },
   "devDependencies": {
+    "ava": "0.13.0",
     "babel-cli": "6.6.5",
     "babel-eslint": "6.0.0-beta.6",
     "eslint": "2.4.0",
-    "eslint-config-airbnb": "6.2.0"
+    "eslint-config-airbnb": "6.2.0",
+    "nyc": "6.1.1"
   }
 }
