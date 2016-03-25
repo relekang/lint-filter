@@ -7,7 +7,6 @@ import { parseFiles, parseString } from './parser'
 export function checkError(error) {
   return new Promise((resolve, reject) => {
     isLineInDiff(error)
-      .then(_.flatten)
       .catch(reject)
       .then(isInDiff => resolve(_.assign({}, error, { isInDiff })))
   })
