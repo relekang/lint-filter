@@ -6,7 +6,8 @@
   "bin": "./steering.js",
   "scripts": {
     "prepublish": "babel src -d lib",
-    "test": "nyc ava"
+    "test": "nyc ava",
+    "coverage": "nyc ava --reporter cobertura"
   },
   "repository": {
     "type": "git",
