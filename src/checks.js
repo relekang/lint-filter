@@ -4,9 +4,17 @@ import Promise from 'bluebird'
 import { isLineInDiff } from './utils'
 import { parseFiles, parseString } from './parser'
 
+export function checkError(error) {
+  return new Promise((resolve, reject) => {
+    isLineInDiff(error)
+      .then(_.flatten)
+      .catch(reject)
+      .then(isInDiff => resolve(_.assign({}, error, { isInDiff })))
+  })
+}
+
 export function checkErrors(errors) {
-  return Promise.all(errors.map(error => isLineInDiff(error)))
-    .then(_.flatten)
+  return Promise.all(errors.map(checkError))
 }
 
 export function checkFiles(files, options) {
