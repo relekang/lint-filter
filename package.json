@@ -32,7 +32,7 @@
       "babel-register"
     ]
   },
-  "bundledDependencies": {
+  "dependencies": {
     "checkstyle-formatter": "1.0.0",
     "commander": "2.9.0",
     "in-range": "1.0.0",
@@ -40,6 +40,14 @@
     "stdin": "0.0.1",
     "xml2js": "0.4.16"
   },
+  "bundledDependencies": [
+    "checkstyle-formatter",
+    "commander",
+    "in-range",
+    "nodegit",
+    "stdin",
+    "xml2js"
+  ],
   "devDependencies": {
     "ava": "0.13.0",
     "babel": "6.5.2",
