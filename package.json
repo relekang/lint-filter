@@ -33,6 +33,7 @@
     ]
   },
   "dependencies": {
+    "chalk": "1.1.1",
     "checkstyle-formatter": "1.0.0",
     "commander": "2.9.0",
     "in-range": "1.0.0",
@@ -41,6 +42,7 @@
     "xml2js": "0.4.16"
   },
   "bundledDependencies": [
+    "chalk",
     "checkstyle-formatter",
     "commander",
     "in-range",

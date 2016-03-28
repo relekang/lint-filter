@@ -19,7 +19,7 @@ export default function main() {
   program
     .version(info.version)
     .usage('[options] <file ...>')
-    .option('-f, --format [format]', 'The output format', 'checkstyle')
+    .option('-f, --format [format]', 'The output format', 'text')
     .parse(process.argv)
 
   if (program.args.length === 0) {

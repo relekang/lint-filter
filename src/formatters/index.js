@@ -1,9 +1,11 @@
 import _ from 'lodash'
 
 import checkstyle from './checkstyle'
+import text from './text'
 
 const formatters = {
   checkstyle,
+  text,
 }
 
 export function preFormatter(data) {
