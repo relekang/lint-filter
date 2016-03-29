@@ -10,7 +10,7 @@ export function parseDiffRanges(diff) {
   if (!_.isEmpty(matches)) {
     return matches.map(match => {
       const [start, end] = /^\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/.exec(match).slice(1, 3)
-      return [parseInt(start, 10), parseInt(end, 10)]
+      return [parseInt(start, 10), parseInt(start, 10) + parseInt(end, 10)]
     })
   }
   return []

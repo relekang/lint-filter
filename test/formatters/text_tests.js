@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import formatter from '../../src/formatters/default'
+import formatter from '../../src/formatters/text'
 
 const input = [
   {

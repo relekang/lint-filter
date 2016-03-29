@@ -19,7 +19,8 @@ test('parseDiffRanges(diff) should return empty array for no matches', t => {
 })
 
 test('parseDiffRanges(diff) should return diff range for one match', t => {
-  t.same(utils.parseDiffRanges('@@ -0,0 +1,2 @@'), [[1, 2]])
+  t.same(utils.parseDiffRanges('@@ -0,0 +1,2 @@'), [[1, 3]])
+  t.same(utils.parseDiffRanges('@@ -0,0 +14,20 @@'), [[14, 34]])
 })
 
 test('parseDiffRanges(diff) should return diff range for multiple matches', t => {
@@ -31,7 +32,7 @@ export function parseDiffRanges(diff) {
 const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
 @@ -0,0 +45,55 @@
   `
-  t.same(utils.parseDiffRanges(diff), [[8, 43], [45, 55]])
+  t.same(utils.parseDiffRanges(diff), [[8, 51], [45, 100]])
 })
 
 test(
