@@ -41,15 +41,6 @@
     "stdin": "0.0.1",
     "xml2js": "0.4.16"
   },
-  "bundledDependencies": [
-    "chalk",
-    "checkstyle-formatter",
-    "commander",
-    "in-range",
-    "nodegit",
-    "stdin",
-    "xml2js"
-  ],
   "devDependencies": {
     "ava": "0.13.0",
     "babel": "6.5.2",
