@@ -70,16 +70,13 @@ test('isLineInDiff({ file, line }) should return false when line is in range', t
 test('hasError(result) should return true if contains error', t => {
   const input = [
     {
-      filename: '~/dev/lint-filter/src/index.js',
-      messages: [
-        {
-          line: '7',
-          column: '23',
-          severity: 'error',
-          message: 'Extra semicolon. (semi)',
-          source: 'eslint.rules.semi',
-        },
-      ],
+      line: '7',
+      column: '23',
+      severity: 'error',
+      message: 'Extra semicolon. (semi)',
+      source: 'eslint.rules.semi',
+      file: '/Users/rolf/dev/lint-filter/README.md',
+      isInDiff: true,
     },
   ]
   t.same(utils.hasError(input), true)
@@ -88,16 +85,28 @@ test('hasError(result) should return true if contains error', t => {
 test('hasError(result) should return false if contains warning', t => {
   const input = [
     {
-      filename: '~/dev/lint-filter/src/index.js',
-      messages: [
-        {
-          line: '7',
-          column: '23',
-          severity: 'warning',
-          message: 'Extra semicolon. (semi)',
-          source: 'eslint.rules.semi',
-        },
-      ],
+      line: '7',
+      column: '23',
+      severity: 'warning',
+      message: 'Extra semicolon. (semi)',
+      source: 'eslint.rules.semi',
+      file: '/Users/rolf/dev/lint-filter/README.md',
+      isInDiff: true,
+    },
+  ]
+  t.same(utils.hasError(input), false)
+})
+
+test('hasError(result) should return false if contains error not in diff', t => {
+  const input = [
+    {
+      line: '7',
+      column: '23',
+      severity: 'warning',
+      message: 'Extra semicolon. (semi)',
+      source: 'eslint.rules.semi',
+      file: '/Users/rolf/dev/lint-filter/README.md',
+      isInDiff: false,
     },
   ]
   t.same(utils.hasError(input), false)
