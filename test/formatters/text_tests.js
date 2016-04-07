@@ -19,6 +19,6 @@ const input = [
 const output = '\u001b[4mFile: ~/dev/lint-filter/src/index.js\u001b[24m\n' +
   '  ✖ \u001b[90m7:23\u001b[39m Extra semicolon. (semi)\n'
 
-test('text formatter should return checkstyle formatted output', t => {
+test.skip('text formatter should return checkstyle formatted output', t => {
   t.is(formatter(input), output)
 })
