@@ -52,3 +52,14 @@ export function isLineInDiff({ file, line }) {
       return false
     })
 }
+
+export function hasError(result = []) {
+  for (let i = 0; i < result.length; i++) {
+    for (let y = 0; y < result[i].messages.length; y++) {
+      if (result[i].messages[y].severity === 'error') {
+        return true
+      }
+    }
+  }
+  return false
+}

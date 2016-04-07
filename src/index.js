@@ -4,11 +4,13 @@ import stdin from 'stdin'
 import info from '../package.json'
 import { checkFiles, checkString } from './checks'
 import { formatOutput } from './formatters'
+import { hasError } from './utils'
 
 function handleResult(promise, options) {
   return promise
     .then(result => {
       console.log(formatOutput(options.format, result)) // eslint-disable-line no-console
+      process.exit(hasError(result) ? 1 : 0)
     })
     .catch(error => {
       throw error
