@@ -9,7 +9,7 @@ const input = [
     severity: 'error',
     message: 'Extra semicolon. (semi)',
     source: 'eslint.rules.semi',
-    file: '~/dev/steering/src/checks.js',
+    file: '~/dev/lint-filter/src/checks.js',
     isInDiff: false,
   },
   {
@@ -18,14 +18,14 @@ const input = [
     severity: 'error',
     message: 'Extra semicolon. (semi)',
     source: 'eslint.rules.semi',
-    file: '~/dev/steering/src/index.js',
+    file: '~/dev/lint-filter/src/index.js',
     isInDiff: true,
   },
 ]
 
 const output = [
   {
-    filename: '~/dev/steering/src/index.js',
+    filename: '~/dev/lint-filter/src/index.js',
     messages: [
       {
         line: '7',

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <checkstyle version="4.3">
-  <file name="/Users/rolf/dev/steering/README.md">
+  <file name="/Users/rolf/dev/lint-filter/README.md">
     <error line="7" column="23" severity="error" message="Extra semicolon. (semi)" source="eslint.rules.semi" />
   </file>
-  <file name="/Users/rolf/dev/steering/src/index.js">
+  <file name="/Users/rolf/dev/lint-filter/src/index.js">
     <error line="7" column="23" severity="error" message="Extra semicolon. (semi)" source="eslint.rules.semi" />
     <error line="7" column="23" severity="error" message="Extra semicolon. (semi)" source="eslint.rules.semi" />
   </file>

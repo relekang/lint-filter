@@ -1,9 +1,9 @@
 {
-  "name": "@relekang/steering",
-  "version": "1.0.2",
+  "name": "lint-filter",
+  "version": "0.0.0",
   "description": "Lint touched code stricter",
   "main": "./lib",
-  "bin": "./steering.js",
+  "bin": "./lint-filter.js",
   "scripts": {
     "prepublish": "babel src -d lib",
     "test": "nyc ava",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/relekang/steering.git"
+    "url": "git+https://github.com/relekang/lint-filter.git"
   },
   "keywords": [
     "lint"
@@ -19,9 +19,9 @@
   "author": "Rolf Erik Lekang <me@rolflekang.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/relekang/steering/issues"
+    "url": "https://github.com/relekang/lint-filter/issues"
   },
-  "homepage": "https://github.com/relekang/steering#readme",
+  "homepage": "https://github.com/relekang/lint-filter#readme",
   "ava": {
     "files": [
       "test/formatters/*.js",

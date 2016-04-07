@@ -3,7 +3,7 @@ import checkstyle from '../../src/formatters/checkstyle'
 
 const input = [
   {
-    filename: '~/dev/steering/src/index.js',
+    filename: '~/dev/lint-filter/src/index.js',
     messages: [
       {
         line: '7',
@@ -19,7 +19,7 @@ const input = [
 const output =
 `<?xml version="1.0" encoding="utf-8"?>
 <checkstyle version="4.3">
-<file name="~/dev/steering/src/index.js">
+<file name="~/dev/lint-filter/src/index.js">
 <error line="7" column="23" severity="error" message="Extra semicolon. (semi)" />
 </file>
 </checkstyle>`
