@@ -25,7 +25,7 @@ steering checkstyle-report.xml
 cat checkstyle-report.xml | steering
 
 # example usage with eslint
-eslint . | steering
+eslint . -f checkstyle | steering
 ```
 
 ## Contributing
