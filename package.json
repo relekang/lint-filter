@@ -7,7 +7,8 @@
   "scripts": {
     "prepublish": "babel src -d lib",
     "test": "nyc ava",
-    "coverage": "nyc ava --reporter cobertura"
+    "lint": "eslint .",
+    "coverage": "nyc --reporter cobertura ava --verbose"
   },
   "repository": {
     "type": "git",

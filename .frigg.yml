@@ -2,7 +2,8 @@ tasks:
   setup:
     - npm install
   tests:
-    - npm coverage
+    - npm run coverage
+    - npm run lint
 
 coverage:
   path: coverage/cobertura-coverage.xml
