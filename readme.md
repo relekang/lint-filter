@@ -2,7 +2,7 @@
 
 Only show style errors of things that have changed since master. This support tools that support exporting output in checkstyle format. This can be useful if you want to convert a project gradually towards a new config, (e.g. adding a new rule from the latest release of your linter). Another case were this is beneficial is were you do not want to break a build when updating the linter.
 
-[![Build status][build-badge]][build-link] ![Coverage][coverage-badge] [![Trello][trello-badge]][trello-link] [![Join the conversation at gitter][gitter-badge]][gitter-link]
+[![Build status][build-badge]][build-link] [![Trello][trello-badge]][trello-link] [![Join the conversation at gitter][gitter-badge]][gitter-link]
 
 ## Installation
 
