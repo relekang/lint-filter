@@ -3,7 +3,7 @@ import cp from 'child_process'
 import Promise from 'bluebird'
 import inRange from 'in-range'
 
-export const exec = Promise.promisify(cp.exec)
+export const execFile = Promise.promisify(cp.execFile)
 
 export function parseDiffRanges(diff) {
   const matches = diff.match(/^\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/gm)
@@ -22,14 +22,14 @@ export function resetDiffCache() {
 }
 
 export function getDiffForFile(file) {
-  const command = `git diff origin/master... ${file}`
+  const command = ['git', 'diff', 'origin/master...', file]
 
-  if (diffs.hasOwnProperty(command)) {
-    return Promise.resolve(diffs[command])
+  if (diffs.hasOwnProperty(file)) {
+    return Promise.resolve(diffs[file])
   }
 
-  diffs[command] = new Promise((resolve, reject) => {
-    exports.exec(command, (error, stdout) => {
+  diffs[file] = new Promise((resolve, reject) => {
+    exports.execFile(command.shift(), command, (error, stdout) => {
       if (error) {
         return reject(error)
       }
@@ -37,7 +37,7 @@ export function getDiffForFile(file) {
     })
   })
 
-  return diffs[command]
+  return diffs[file]
 }
 
 export function isLineInDiff({ file, line }) {

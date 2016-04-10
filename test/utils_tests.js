@@ -40,17 +40,17 @@ test(
   t => t.same(utils.parseDiffRanges('+@@ -8,27 +8,43 @@'), [])
 )
 
-test('getDiffForFile(file) should call exec(git diff ...)', t => {
-  sandbox.stub(utils, 'exec').returns(Promise.resolve(''))
+test('getDiffForFile(file) should call execFile(git diff ...)', t => {
+  sandbox.stub(utils, 'execFile').returns(Promise.resolve(''))
   utils.getDiffForFile('somefile')
-  t.ok(utils.exec.calledWith('git diff origin/master... somefile'))
+  t.ok(utils.execFile.calledWith('git', ['diff', 'origin/master...', 'somefile']))
 })
 
-test('getDiffForFile(file) should call exec one time for same file', t => {
-  sandbox.stub(utils, 'exec').returns(Promise.delay(20))
+test('getDiffForFile(file) should call execFile one time for same file', t => {
+  sandbox.stub(utils, 'execFile').returns(Promise.delay(20))
   utils.getDiffForFile('somefile')
   utils.getDiffForFile('somefile')
-  t.is(utils.exec.callCount, 1)
+  t.is(utils.execFile.callCount, 1)
 })
 
 test('isLineInDiff({ file, line }) should return true when line is in range', t => {
