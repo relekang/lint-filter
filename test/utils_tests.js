@@ -40,10 +40,18 @@ test(
   t => t.same(utils.parseDiffRanges('+@@ -8,27 +8,43 @@'), [])
 )
 
-test('getDiffForFile(file) should call execFile(git diff ...)', t => {
+test('getDiffForFile(file) should call execFile(git diff ...) with the merge base', t => {
+  sandbox.stub(utils, 'execFileSync').returns('somerev')
   sandbox.stub(utils, 'execFile').returns(Promise.resolve(''))
   utils.getDiffForFile('somefile')
-  t.ok(utils.execFile.calledWith('git', ['diff', 'origin/master...', 'somefile']))
+  t.ok(utils.execFile.calledWith('git', ['diff', 'somerev', sinon.match.any]))
+})
+
+test('getDiffForFile(file) should call execFile(git diff ...) with the file', t => {
+  sandbox.stub(utils, 'execFileSync')
+  sandbox.stub(utils, 'execFile').returns(Promise.resolve(''))
+  utils.getDiffForFile('somefile')
+  t.ok(utils.execFile.calledWith('git', ['diff', sinon.match.any, 'somefile']))
 })
 
 test('getDiffForFile(file) should call execFile one time for same file', t => {
