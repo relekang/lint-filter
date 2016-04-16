@@ -32,7 +32,7 @@ export function parseFullDiff(diff) {
     .reduce((lastValue, { filename, ranges }) => _.assign(
       {},
       lastValue,
-      { [filename]: ranges })
+      { [filename]: lastValue[filename] ? _.concat(lastValue[filename], ranges) : ranges })
     , {})
 }
 

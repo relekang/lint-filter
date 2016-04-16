@@ -43,7 +43,7 @@ test('getDiffInformation(hash) should return object with diff ranges for all fil
   const diff = await gitUtils.getDiffInformation('1f2d836')
 
   t.same(diff, {
-    'lint-filter.js': [[1, 3]],
+    'lint-filter.js': [[1, 3], [2, 5]],
     'src/index.js': [[4, 17]],
     'src/utils.js': [[3, 44], [45, 52], [60, 67]],
     'test/utils_tests.js': [[40, 65], [74, 122]],

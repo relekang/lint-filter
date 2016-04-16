@@ -6,6 +6,14 @@ index 0e34c94..8b80ccc 100755
  #!/usr/bin/env node
 -require('babel-core/register')
  require('./lib').default()
+diff --git a/lint-filter.js b/lint-filter.js
+index 0e34c94..8b80ccc 100755
+--- a/lint-filter.js
++++ b/lint-filter.js
+@@ -1,3 +2,3 @@
+ #!/usr/bin/env node
+-require('babel-core/register')
+ require('./lib').default()
 diff --git a/src/index.js b/src/index.js
 index 7d064f4..baca4da 100644
 --- a/src/index.js
