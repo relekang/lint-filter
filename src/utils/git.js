@@ -15,7 +15,7 @@ export function parseDiffRanges(diff) {
   return []
 }
 
-const filenameRegex = /a\/([^\n]+) b\/[^\n]+/
+const filenameRegex = /^a\/([^\n]+) b\/[^\n]+/
 export function parseDiffForFile(diff) {
   const matches = filenameRegex.exec(diff)
   if (matches === null) {
@@ -26,7 +26,7 @@ export function parseDiffForFile(diff) {
 }
 
 export function parseFullDiff(diff) {
-  return _(diff.split('diff --git '))
+  return _(`\n${diff}`.split('\ndiff --git '))
     .map(parseDiffForFile)
     .filter(_.isObject)
     .reduce((lastValue, { filename, ranges }) => _.assign(
