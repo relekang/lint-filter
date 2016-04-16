@@ -24,7 +24,7 @@ export default async function main() {
 
   if (program.args.length === 0) {
     const input = await new Promise(resolve => stdin(resolve))
-    const result = checkString(diff, input)
+    const result = await checkString(diff, input)
     return handleResult(result, program)
   }
 
