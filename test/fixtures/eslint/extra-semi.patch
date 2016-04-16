@@ -1,0 +1,13 @@
+diff --git a/src/index.js b/src/index.js
+index baca4da..e17f75b 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -4,7 +4,7 @@ import stdin from 'stdin'
+ import info from '../package.json'
+ import { checkFiles, checkString } from './checks'
+ import { formatOutput } from './formatters'
+-import { hasError } from './utils'
++import { hasError } from './utils';;
+ 
+ function handleResult(promise, options) {
+   return promise
