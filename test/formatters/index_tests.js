@@ -39,5 +39,5 @@ const output = [
 ]
 
 test('preFormatter(data) should return formatted output', t => {
-  t.same(preFormatter(input), output)
+  t.deepEqual(preFormatter(input), output)
 })

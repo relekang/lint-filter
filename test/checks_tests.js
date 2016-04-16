@@ -12,7 +12,7 @@ test.beforeEach(() => {
 
 test('checkError(error) should resolve error object with isInDiff set to true', t => {
   sandbox.stub(utils, 'isLineInDiff').returns(true)
-  t.same(
+  t.deepEqual(
     checks.checkError({ message: 'some message' }),
     { message: 'some message', isInDiff: true }
   )
@@ -20,7 +20,7 @@ test('checkError(error) should resolve error object with isInDiff set to true', 
 
 test('checkError(error) should resolve error object with isInDiff set to false', t => {
   sandbox.stub(utils, 'isLineInDiff').returns(false)
-  t.same(
+  t.deepEqual(
     checks.checkError({ message: 'some message' }),
     { message: 'some message', isInDiff: false }
   )

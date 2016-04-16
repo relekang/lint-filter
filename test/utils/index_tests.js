@@ -33,7 +33,7 @@ test('hasError(result) should return true if contains error', t => {
       isInDiff: true,
     },
   ]
-  t.same(utils.hasError(input), true)
+  t.deepEqual(utils.hasError(input), true)
 })
 
 test('hasError(result) should return false if contains warning', t => {
@@ -48,7 +48,7 @@ test('hasError(result) should return false if contains warning', t => {
       isInDiff: true,
     },
   ]
-  t.same(utils.hasError(input), false)
+  t.deepEqual(utils.hasError(input), false)
 })
 
 test('hasError(result) should return false if contains error not in diff', t => {
@@ -63,5 +63,5 @@ test('hasError(result) should return false if contains error not in diff', t => 
       isInDiff: false,
     },
   ]
-  t.same(utils.hasError(input), false)
+  t.deepEqual(utils.hasError(input), false)
 })
