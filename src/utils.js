@@ -7,10 +7,10 @@ export const execFile = Promise.promisify(cp.execFile)
 export const execFileSync = cp.execFileSync
 
 export function parseDiffRanges(diff) {
-  const matches = diff.match(/^\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/gm)
+  const matches = diff.match(/^@@ -\d+,\d+ \+(\d+),(\d+) @@/gm)
   if (!_.isEmpty(matches)) {
     return matches.map(match => {
-      const [start, end] = /^\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/.exec(match).slice(1, 3)
+      const [start, end] = /^@@ -\d+,\d+ \+(\d+),(\d+) @@/.exec(match).slice(1, 3)
       return [parseInt(start, 10), parseInt(start, 10) + parseInt(end, 10)]
     })
   }
