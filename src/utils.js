@@ -3,7 +3,8 @@ import cp from 'child_process'
 import Promise from 'bluebird'
 import inRange from 'in-range'
 
-export const exec = Promise.promisify(cp.exec)
+export const execFile = Promise.promisify(cp.execFile)
+export const execFileSync = cp.execFileSync
 
 export function parseDiffRanges(diff) {
   const matches = diff.match(/^\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/gm)
@@ -16,20 +17,27 @@ export function parseDiffRanges(diff) {
   return []
 }
 
+let diffAgainst
 let diffs = {}
 export function resetDiffCache() {
   diffs = {}
 }
 
 export function getDiffForFile(file) {
-  const command = `git diff origin/master... ${file}`
-
-  if (diffs.hasOwnProperty(command)) {
-    return Promise.resolve(diffs[command])
+  if (!diffAgainst) {
+    diffAgainst = String(
+      exports.execFileSync('git', ['merge-base', 'origin/master', 'HEAD'])
+    ).trim()
   }
 
-  diffs[command] = new Promise((resolve, reject) => {
-    exports.exec(command, (error, stdout) => {
+  const command = ['git', 'diff', diffAgainst, file]
+
+  if (diffs.hasOwnProperty(file)) {
+    return Promise.resolve(diffs[file])
+  }
+
+  diffs[file] = new Promise((resolve, reject) => {
+    exports.execFile(command.shift(), command, (error, stdout) => {
       if (error) {
         return reject(error)
       }
@@ -37,7 +45,7 @@ export function getDiffForFile(file) {
     })
   })
 
-  return diffs[command]
+  return diffs[file]
 }
 
 export function isLineInDiff({ file, line }) {
