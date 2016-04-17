@@ -1,0 +1,37 @@
+#!/bin/bash
+if [ ! -d "./node_modules" ]; then
+  npm install
+fi
+
+npm run prepublish > /dev/null
+
+git apply test/fixtures/dummy.patch
+./node_modules/.bin/eslint --no-ignore test/fixtures/dummy.js -f checkstyle > eslint-result.xml
+
+has_failed=0
+
+function print_error () {
+  echo >&2 Error: $1
+  has_failed=1
+}
+
+if cat eslint-result.xml | ./lint-filter.js > /dev/null ; then
+  print_error "stdin test failed"
+elif [[ $(cat eslint-result.xml | ./lint-filter.js | grep -oc "semi") != "1" ]]; then
+  print_error "stdin output failed"
+else
+  echo "stdin success"
+fi
+
+if ./lint-filter.js eslint-result.xml > /dev/null ; then
+  print_error "file test failed"
+elif [[ $(./lint-filter.js eslint-result.xml | grep -oc "semi") != "1" ]]; then
+  print_error "args output failed"
+else
+  echo "args success"
+fi
+
+git checkout test/fixtures/dummy.js
+rm -f eslint-result.xml
+
+exit $has_failed

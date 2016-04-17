@@ -5,6 +5,7 @@ tasks:
   tests:
     - npm run coverage
     - npm run lint
+    - ./integration-test
 
 coverage:
   path: coverage/cobertura-coverage.xml
