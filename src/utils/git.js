@@ -36,7 +36,7 @@ export function parseFullDiff(diff) {
     , {})
 }
 
-export async function getDiffInformation(hash) {
-  const diffAgainst = hash || await exports.execFile('git', ['merge-base', 'origin/master', 'HEAD'])
+export async function getDiffInformation({ branch = 'origin/master', hash } = {}) {
+  const diffAgainst = hash || await exports.execFile('git', ['merge-base', branch, 'HEAD'])
   return parseFullDiff(await exports.execFile('git', ['diff', diffAgainst.trim()]))
 }
