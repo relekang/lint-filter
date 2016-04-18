@@ -18,9 +18,10 @@ export default async function main() {
     .version(info.version)
     .usage('[options] <file ...>')
     .option('-f, --format [format]', 'The output format', 'text')
+    .option('-b, --branch [branch]', 'The branch to diff against')
     .parse(process.argv)
 
-  const diff = await getDiffInformation()
+  const diff = await getDiffInformation(program)
 
   if (program.args.length === 0) {
     const input = await new Promise(resolve => stdin(resolve))
