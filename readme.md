@@ -28,6 +28,20 @@ cat checkstyle-report.xml | lint-filter
 eslint . -f checkstyle | lint-filter
 ```
 
+### Options
+
+```
+$ lint-filter -h
+  Usage: lint-filter [options] <file ...>
+
+  Options:
+
+    -h, --help             output usage information
+    -V, --version          output the version number
+    -f, --format [format]  The output format
+    -b, --branch [branch]  The branch to diff against
+```
+
 ## Contributing
 Firstly, all contributions is super appreciated :sparkles:
 
