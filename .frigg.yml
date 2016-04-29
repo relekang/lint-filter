@@ -1,6 +1,5 @@
 tasks:
   setup:
-    - npm install -g npm@3
     - npm install
   tests:
     - npm run coverage
