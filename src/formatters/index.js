@@ -20,9 +20,24 @@ export function preFormatter(data) {
   }))
 }
 
+export function generateStats(data) {
+  return {
+    errors: {
+      total: _.filter(data, { severity: 'error' }).length,
+      in: _.filter(data, { severity: 'error', isInDiff: true }).length,
+      out: _.filter(data, { severity: 'error', isInDiff: false }).length,
+    },
+    warnings: {
+      total: _.filter(data, { severity: 'warning' }).length,
+      in: _.filter(data, { severity: 'warning', isInDiff: true }).length,
+      out: _.filter(data, { severity: 'warning', isInDiff: false }).length,
+    },
+  }
+}
+
 export function formatOutput(format, data) {
   if (!formatters.hasOwnProperty(format)) {
     throw new Error(`Formatter with name '${format}' does not exist.`)
   }
-  return formatters[format](preFormatter(data))
+  return formatters[format](preFormatter(data), generateStats(data))
 }
