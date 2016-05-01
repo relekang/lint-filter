@@ -1,6 +1,9 @@
 import test from 'ava'
+import chalk from 'chalk'
 
 import formatter from '../../src/formatters/text'
+
+chalk.enabled = true
 
 const input = [
   {
