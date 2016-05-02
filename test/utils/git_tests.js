@@ -41,7 +41,7 @@ test.serial(
   'getDiffInformation({branch, hash}) should return object with diff ranges for all files',
   async (t) => {
     t.plan(1)
-    t.context.sandbox.stub(gitUtils, 'execFile').returns(Promise.resolve(diffFixture))
+    t.context.sandbox.stub(gitUtils, 'spawn').returns(Promise.resolve(diffFixture))
     const diff = await gitUtils.getDiffInformation()
 
     t.deepEqual(diff, {
@@ -57,11 +57,11 @@ test.serial(
   'getDiffInformation({branch, hash}) should use origin/master as default',
   async (t) => {
     t.plan(1)
-    t.context.sandbox.stub(gitUtils, 'execFile').returns(Promise.resolve(diffFixture))
+    t.context.sandbox.stub(gitUtils, 'spawn').returns(Promise.resolve(diffFixture))
     await gitUtils.getDiffInformation({})
 
     t.deepEqual(
-      gitUtils.execFile.getCall(0).args,
+      gitUtils.spawn.getCall(0).args,
       ['git', ['merge-base', 'origin/master', 'HEAD']]
     )
   }
@@ -71,11 +71,11 @@ test.serial(
   'getDiffInformation({branch, hash}) should use custom branch when specified',
   async (t) => {
     t.plan(1)
-    t.context.sandbox.stub(gitUtils, 'execFile').returns(Promise.resolve(diffFixture))
+    t.context.sandbox.stub(gitUtils, 'spawn').returns(Promise.resolve(diffFixture))
     await gitUtils.getDiffInformation({ branch: 'origin/production' })
 
     t.deepEqual(
-      gitUtils.execFile.getCall(0).args,
+      gitUtils.spawn.getCall(0).args,
       ['git', ['merge-base', 'origin/production', 'HEAD']]
     )
   }
