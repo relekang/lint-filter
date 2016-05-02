@@ -32,7 +32,7 @@ eslint . -f checkstyle | lint-filter
 
 ```
 $ lint-filter -h
-  Usage: lint-filter [options] <file ...>
+  Usage: lint-filter [options] <subcommand|file ...>
 
   Options:
 
@@ -41,6 +41,12 @@ $ lint-filter -h
     -f, --format [format]  The output format
     -b, --branch [branch]  The branch to diff against
 ```
+
+### Sub commands
+The first argument can either be a file or a sub command. The available sub commands are listed
+below.
+
+* `list-files` - list the files in the current diff that lint-filter will use. Nice for faster linting.
 
 ## Contributing
 Firstly, all contributions is super appreciated :sparkles:
