@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 require('babel-polyfill')
-require('./lib').default()
+require('./lib').default() // eslint-disable-line import/no-unresolved
