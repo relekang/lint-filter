@@ -1,33 +1,36 @@
-import _ from 'lodash'
+import _, { assign, isEmpty } from 'lodash'
 import fs from 'fs'
 import Promise from 'bluebird'
 import xml2js from 'xml2js'
 
-Promise.promisifyAll(fs)
-Promise.promisifyAll(xml2js)
+export const readFile = Promise.promisify(fs.readFile)
 
 export function mapErrorsFromFileBlock(file) {
-  if (file.error) {
-    return file.error.map(({ $ }) => _.assign({}, $, { file: file.$.name }))
-  }
-  return null
+  return _.map(file.error, ({ $ }) => assign({}, $, { file: file.$.name }))
 }
 
-const parser = new xml2js.Parser()
-export function parseString(str) {
-  return parser.parseStringAsync(str)
-    .then(({ checkstyle }) => checkstyle.file.map(mapErrorsFromFileBlock))
-    .then(result => _.reject(result, _.isEmpty))
-    .then(result => _.flatten(result))
+export const xmlParser = Promise.promisify(new xml2js.Parser().parseString)
+export async function parseString(str) {
+  const { checkstyle } = await exports.xmlParser(str)
+
+  return _(checkstyle.file)
+    .map(mapErrorsFromFileBlock)
+    .reject(isEmpty)
+    .flatten()
+    .value()
 }
 
-export function parseFile(file) {
-  return fs.readFileAsync(file)
-    .then(content => parseString(content.toString()))
+export async function parseFile(path) {
+  const content = await exports.readFile(path)
+  return await exports.parseString(content.toString())
 }
 
-export function parseFiles(files) {
-  return Promise.all(files.map(parseFile))
-    .then(result => _.flatten(_.flatten(result)))
-    .then(result => _.reject(result, _.isEmpty))
+export async function parseFiles(files) {
+  const result = await Promise.all(files.map(exports.parseFile))
+
+  return _(result)
+    .flatten()
+    .flatten()
+    .reject(isEmpty)
+    .value()
 }

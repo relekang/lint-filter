@@ -2,7 +2,26 @@ import _ from 'lodash'
 import cp from 'child_process'
 import Promise from 'bluebird'
 
-export const execFile = Promise.promisify(cp.execFile)
+export const spawn = (file, args) => new Promise((resolve, reject) => {
+  let stdout = ''
+  let stderr = ''
+
+  const process = cp.spawn(file, args)
+  process.stdout.on('data', data => { stdout += data })
+  process.stderr.on('data', data => { stderr += data })
+
+  process.on('close', code => {
+    if (code === 0) {
+      resolve(stdout)
+    } else {
+      const error = new Error(`${file} ${args.join(' ')} failed`)
+      error.stdout = stdout
+      error.stderr = stderr
+      error.code = code
+      reject(error)
+    }
+  })
+})
 
 export function parseDiffRanges(diff) {
   const matches = diff.match(/^@@ -\d+,\d+ \+(\d+),(\d+) @@/gm)
@@ -37,6 +56,6 @@ export function parseFullDiff(diff) {
 }
 
 export async function getDiffInformation({ branch = 'origin/master', hash } = {}) {
-  const diffAgainst = hash || await exports.execFile('git', ['merge-base', branch, 'HEAD'])
-  return parseFullDiff(await exports.execFile('git', ['diff', diffAgainst.trim()]))
+  const diffAgainst = hash || await exports.spawn('git', ['merge-base', branch, 'HEAD'])
+  return parseFullDiff(await exports.spawn('git', ['diff', diffAgainst.trim()]))
 }
