@@ -26,16 +26,16 @@ const parseStringResult = [
 ]
 
 test.serial('parseString(str) should parse xml and make paths relative', async t => {
-  sinon.stub(process, 'cwd').returns('/Users/rolf/dev')
   const xml = await parser.readFile('./fixtures/eslint/extra-semi.xml')
+  sinon.stub(process, 'cwd').returns('/Users/rolf/dev')
   const parsed = await parser.parseString(xml.toString())
   t.deepEqual(parsed, parseStringResult, JSON.stringify(parsed))
   process.cwd.restore()
 })
 
 test.serial('parseString(str) should parse xml and convert windows paths', async t => {
-  sinon.stub(process, 'cwd').returns('C:\\dev')
   const xml = await parser.readFile('./fixtures/eslint/dummy_js_windows.xml')
+  sinon.stub(process, 'cwd').returns('C:\\dev')
   const parsed = await parser.parseString(xml.toString())
   t.is(first(parsed).file, 'lint-filter/test/fixtures/dummy.js')
   process.cwd.restore()
