@@ -3,7 +3,7 @@
 const coffee = '☕'
 
 if (typeof coffee === 'string') {
-  console.log('\o/')
+  console.log('\o/');
 }
 
 console.log('----------')
