@@ -6,13 +6,6 @@ test('isLineInDiff({ file, line }, diff) should return true when line is in rang
   t.is(utils.isLineInDiff({ file: 'somefile', line: '4' }, { somefile: [[1, 8]] }), true)
 })
 
-test('isLineInDiff({ file, line }, diff) should return replace working dir from filename', t => {
-  t.is(
-    utils.isLineInDiff({ file: `${process.cwd()}/somefile`, line: '4' }, { somefile: [[1, 8]] }),
-    true
-  )
-})
-
 test('isLineInDiff({ file, line }, diff) should return false when line is not in range', t => {
   t.is(utils.isLineInDiff({ file: 'somefile', line: '10' }, { somefile: [[1, 8]] }), false)
 })

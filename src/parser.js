@@ -5,8 +5,12 @@ import xml2js from 'xml2js'
 
 export const readFile = Promise.promisify(fs.readFile)
 
+export function makePathRelative(filepath) {
+  return filepath.replace(`${process.cwd()}`, '').replace(/\\/g, '/').slice(1)
+}
+
 export function mapErrorsFromFileBlock(file) {
-  return _.map(file.error, ({ $ }) => assign({}, $, { file: file.$.name }))
+  return _.map(file.error, ({ $ }) => assign({}, $, { file: makePathRelative(file.$.name) }))
 }
 
 export const xmlParser = Promise.promisify(new xml2js.Parser().parseString)
