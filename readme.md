@@ -2,7 +2,7 @@
 
 Only show style errors of things that have changed since master. This support tools that support exporting output in checkstyle format. This can be useful if you want to convert a project gradually towards a new config, (e.g. adding a new rule from the latest release of your linter). Another case were this is beneficial is were you do not want to break a build when updating the linter.
 
-[![Build status][build-badge]][build-link] [![Join the conversation at gitter][gitter-badge]][gitter-link]
+[![Build status][build-badge]][build-link] [![Build status][appveyor-badge]][appveyor-link] [![Join the conversation at gitter][gitter-badge]][gitter-link]
 
 ## Installation
 
@@ -57,6 +57,8 @@ If you have questions, bug report or feature requests you are encouraged to drop
 [build-link]: https://ci.frigg.io/relekang/lint-filter
 [build-badge]: https://ci.frigg.io/relekang/lint-filter.svg
 [coverage-badge]: https://ci.frigg.io/relekang/lint-filter/coverage.svg
+[appveyor-badge]: https://ci.appveyor.com/api/projects/status/0wwd6j3aehsg6ntv?svg=true
+[appveyor-link]: https://ci.appveyor.com/project/relekang/lint-filter
 [gitter-link]: https://gitter.im/relekang/lint-filter
 [gitter-badge]: https://badges.gitter.im/relekang/lint-filter.svg
 [pr-tutorial-link]: https://egghead.io/lessons/javascript-how-to-create-a-pull-request-on-github
