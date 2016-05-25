@@ -52,7 +52,7 @@
     "xml2js": "0.4.16"
   },
   "devDependencies": {
-    "ava": "0.14.0",
+    "ava": "1.0.0",
     "babel": "6.5.2",
     "babel-cli": "6.9.0",
     "babel-core": "6.9.0",
