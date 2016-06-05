@@ -9,6 +9,7 @@ import { checkFiles, checkString } from './checks'
 import { formatOutput } from './formatters'
 import { hasError } from './utils'
 import { getDiffInformation } from './utils/git'
+import setup from './setup'
 
 function handleResult(result, options) {
   console.log(formatOutput(options.format, result))
@@ -19,9 +20,14 @@ export default async function main() {
   program
     .version(info.version)
     .usage('[options] <file ...>')
-    .option('-f, --format [format]', 'The output format', 'text')
-    .option('-b, --branch [branch]', 'The branch to diff against')
+    .option('-f, --format [format]', 'The output format.', 'text')
+    .option('-b, --branch [branch]', 'The branch to diff against.')
+    .option('-l, --linter [linter]', 'The linter that is used in the project.', 'eslint')
     .parse(process.argv)
+
+  if (program.args[0] === 'generate-config') {
+    return setup(program)
+  }
 
   const diff = await getDiffInformation(program)
 

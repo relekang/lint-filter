@@ -1,6 +1,10 @@
 # lint-filter
 
-Only show style errors of things that have changed since master. This support tools that support exporting output in checkstyle format. This can be useful if you want to convert a project gradually towards a new config, (e.g. adding a new rule from the latest release of your linter). Another case were this is beneficial is were you do not want to break a build when updating the linter.
+Only show style errors of things that have changed since master. This support tools that
+support exporting output in checkstyle format. This can be useful if you want to convert
+a project gradually towards a new config, (e.g. adding a new rule from the latest release
+of your linter). Another case were this is beneficial is were you do not want to break a
+build when updating the linter.
 
 [![Build status][build-badge]][build-link] [![Build status][appveyor-badge]][appveyor-link] [![Join the conversation at gitter][gitter-badge]][gitter-link]
 
@@ -9,6 +13,32 @@ Only show style errors of things that have changed since master. This support to
 ```
 npm install --save-dev lint-filter
 ```
+
+### Setup
+The automated generation of a base lint configuration supports eslint. The setup
+command will create an extra lint configuration for you that you can use for a baseline
+without lint-filter. Since not all rules violation will happen at the same place as the
+changed code it is a good idea to have a baseline. Instead of keeping track of all the
+rules that might have violations on other lines than the those we change we will keep
+all rules without errors enabled for all files. This will result in two lint commands
+or a npm script combining two lint commands
+
+To setup lint-filter make your linter config what you want it to be and then run
+
+```
+lint-filter generate-config > .base.eslintrc
+```
+
+Then you can add the following to your script section of your package.json.
+
+```
+"lint": "eslint -c .base.eslintrc .",
+"lint:strict": "eslint . -f checkstyle | lint-filter",
+```
+
+A nice thing you might have realized is that the generate-config command can be run regurarly
+to update the baseline or when upgrading your favorite eslint configuration. This will make it
+a breeze to update linter configuration that adds new rules.
 
 ## Usage
 You can use this in two different ways, either by reading files or reading from stdin.
