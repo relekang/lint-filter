@@ -4,6 +4,7 @@ import Promise from 'bluebird'
 import diffFixture from '../fixtures/diff'
 
 import * as gitUtils from '../../src/utils/git'
+import * as spawn from '../../src/utils/spawn'
 
 test.beforeEach(t => {
   t.context.sandbox = sinon.sandbox.create() // eslint-disable-line no-param-reassign
@@ -41,7 +42,7 @@ test.serial(
   'getDiffInformation({branch, hash}) should return object with diff ranges for all files',
   async (t) => {
     t.plan(1)
-    t.context.sandbox.stub(gitUtils, 'spawn').returns(Promise.resolve(diffFixture))
+    t.context.sandbox.stub(spawn, 'default').returns(Promise.resolve(diffFixture))
     const diff = await gitUtils.getDiffInformation()
 
     t.deepEqual(diff, {
@@ -57,11 +58,11 @@ test.serial(
   'getDiffInformation({branch, hash}) should use origin/master as default',
   async (t) => {
     t.plan(1)
-    t.context.sandbox.stub(gitUtils, 'spawn').returns(Promise.resolve(diffFixture))
+    t.context.sandbox.stub(spawn, 'default').returns(Promise.resolve(diffFixture))
     await gitUtils.getDiffInformation({})
 
     t.deepEqual(
-      gitUtils.spawn.getCall(0).args,
+      spawn.default.getCall(0).args,
       ['git', ['merge-base', 'origin/master', 'HEAD']]
     )
   }
@@ -71,11 +72,11 @@ test.serial(
   'getDiffInformation({branch, hash}) should use custom branch when specified',
   async (t) => {
     t.plan(1)
-    t.context.sandbox.stub(gitUtils, 'spawn').returns(Promise.resolve(diffFixture))
+    t.context.sandbox.stub(spawn, 'default').returns(Promise.resolve(diffFixture))
     await gitUtils.getDiffInformation({ branch: 'origin/production' })
 
     t.deepEqual(
-      gitUtils.spawn.getCall(0).args,
+      spawn.default.getCall(0).args,
       ['git', ['merge-base', 'origin/production', 'HEAD']]
     )
   }
