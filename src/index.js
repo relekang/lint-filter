@@ -19,7 +19,7 @@ function handleResult(result, options) {
 export default async function main() {
   program
     .version(info.version)
-    .usage('[options] <file ...>')
+    .usage('[options] <subcommand|file ...>')
     .option('-f, --format [format]', 'The output format.', 'text')
     .option('-b, --branch [branch]', 'The branch to diff against.')
     .option('-l, --linter [linter]', 'The linter that is used in the project.', 'eslint')
