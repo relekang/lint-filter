@@ -33,9 +33,11 @@ export function parseOptions(): Options {
   return {
     command,
     files: program.args,
-    format: program.format,
-    branch: program.branch,
-    linter: program.linter,
-    warning: !!program.warning,
+    format: process.env.LINT_FILTER_FORMAT || program.format,
+    branch: process.env.LINT_FILTER_BRANCH || program.branch,
+    linter: process.env.LINT_FILTER_LINTER || program.linter,
+    warning: process.env.LINT_FILTER_WARNING
+      ? JSON.parse(process.env.LINT_FILTER_WARNING)
+      : !!program.warning,
   }
 }
