@@ -1,7 +1,8 @@
+// @flow
 import cp from 'child_process'
 import Promise from 'bluebird'
 
-export default function spawn(file, args) {
+export default function spawn(file: string, args: Array<string>): Promise<string> {
   return new Promise((resolve, reject) => {
     let stdout = ''
     let stderr = ''
@@ -15,8 +16,11 @@ export default function spawn(file, args) {
         resolve(stdout)
       } else {
         const error = new Error(`${file} ${args.join(' ')} failed`)
+        // $SuppressFlow
         error.stdout = stdout
+        // $SuppressFlow
         error.stderr = stderr
+        // $SuppressFlow
         error.code = code
         reject(error)
       }

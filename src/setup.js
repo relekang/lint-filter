@@ -1,3 +1,4 @@
+// @flow
 import _ from 'lodash'
 import fs from 'fs'
 import Promise from 'bluebird'
@@ -8,7 +9,7 @@ import { parseString } from './parser'
 
 export const readdir = Promise.promisify(fs.readdir)
 
-export default function setup(program) {
+export default function setup(program: Object) {
   switch (program.linter) {
     case 'eslint':
       return exports.setupEslint(program)
@@ -18,7 +19,7 @@ export default function setup(program) {
   }
 }
 
-export async function getEslintRcFilename(path = '.') {
+export async function getEslintRcFilename(path: string = '.'): Promise<string> {
   const files = await exports.readdir(path)
   return files.reduce((last, item) => {
     if (/^\.eslintrc/.test(item)) {
@@ -28,7 +29,7 @@ export async function getEslintRcFilename(path = '.') {
   })
 }
 
-export async function setupEslint() {
+export async function setupEslint(): Promise<> {
   let result
   try {
     result = await spawn('eslint', ['.', '-f', 'checkstyle'])

@@ -1,14 +1,19 @@
+// @flow
 import _ from 'lodash'
 
 import checkstyle from './checkstyle'
 import text from './text'
+
+import type { CheckstyleItem } from '../parser'
 
 const formatters = {
   checkstyle,
   text,
 }
 
-export function preFormatter(data) {
+export type OutputFormat = Array<{ filename: string, messages: Array<CheckstyleItem> }>
+
+export function preFormatter(data: Array<CheckstyleItem>): OutputFormat {
   return _.filter(_.map(_.groupBy(data, 'file'), (value, key) => {
     if (!_.isEmpty(_.filter(value, 'isInDiff'))) {
       return {
@@ -20,7 +25,12 @@ export function preFormatter(data) {
   }))
 }
 
-export function generateStats(data) {
+export type Stats = {
+  errors: {in: number, out: number, total: number },
+  warnings: {in: number, out: number, total: number },
+}
+
+export function generateStats(data: Array<CheckstyleItem>): Stats {
   return {
     errors: {
       total: _.filter(data, { severity: 'error' }).length,
@@ -35,7 +45,7 @@ export function generateStats(data) {
   }
 }
 
-export function formatOutput(format, data) {
+export function formatOutput(format: string, data: Array<CheckstyleItem>) {
   if (!formatters.hasOwnProperty(format)) {
     throw new Error(`Formatter with name '${format}' does not exist.`)
   }

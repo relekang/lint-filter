@@ -1,3 +1,4 @@
+// @flow
 /* eslint-disable no-console */
 import _ from 'lodash'
 import program from 'commander'
@@ -33,7 +34,7 @@ export default async function main() {
 
   if (program.args.length === 0) {
     const input = await new Promise(resolve => stdin(resolve))
-    const result = await checkString(diff, input)
+    const result = await checkString(diff, input, program)
     return handleResult(result, program)
   }
 

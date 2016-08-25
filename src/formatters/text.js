@@ -1,5 +1,8 @@
+// @flow
 import _ from 'lodash'
 import chalk from 'chalk'
+
+import type { OutputFormat, Stats } from './'
 
 function resultText(result) {
   return _.map(result, file => {
@@ -15,6 +18,6 @@ function statsText(stats) {
     `${stats.warnings.in} of ${stats.warnings.total} warnings`
 }
 
-export default function text(result, stats) {
+export default function text(result: OutputFormat, stats: Stats) {
   return `${resultText(result)}\n${statsText(stats)}`
 }
