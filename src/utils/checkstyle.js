@@ -9,3 +9,7 @@ export function getRulesFromCheckstyle(checkstyle: Array<CheckstyleItem>): Array
     return parts[parts.length - 1]
   }))
 }
+
+export function setSeverityToWarning(item: CheckstyleItem) {
+  return _.assign({}, item, { severity: 'warning' })
+}

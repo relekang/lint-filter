@@ -10,20 +10,23 @@ import { checkFiles, checkString } from './checks'
 import { formatOutput } from './formatters'
 import { hasError } from './utils'
 import { getDiffInformation } from './utils/git'
+import { setSeverityToWarning } from './utils/checkstyle'
 import setup from './setup'
 
 function handleResult(result, options) {
-  console.log(formatOutput(options.format, result))
-  process.exit(hasError(result) ? 1 : 0)
+  const output = options.warning ? _.map(result, setSeverityToWarning) : result
+  console.log(formatOutput(options.format, output))
+  process.exit(hasError(output) ? 1 : 0)
 }
 
-export default async function main() {
+export default async function main(): Promise<> {
   program
     .version(info.version)
     .usage('[options] <subcommand|file ...>')
     .option('-f, --format [format]', 'The output format.', 'text')
     .option('-b, --branch [branch]', 'The branch to diff against.')
     .option('-l, --linter [linter]', 'The linter that is used in the project.', 'eslint')
+    .option('-w, --warning', 'Make all errors that make it through the filter a warning')
     .parse(process.argv)
 
   if (program.args[0] === 'generate-config') {
