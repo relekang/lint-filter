@@ -3,6 +3,8 @@ import _ from 'lodash'
 
 import spawn from './spawn'
 
+import type { Options } from '../cli'
+
 export type DiffInfo = {
   [key: string]: Array<Array<number>>,
 }
@@ -37,7 +39,7 @@ export function parseFullDiff(diff: string) {
 }
 
 export async function getDiffInformation(
-  { branch = 'origin/master', hash }: {branch: string, hash: string } = {}
+  { branch = 'origin/master', hash }: Options = {}
 ): Promise<DiffInfo> {
   const diffAgainst = hash || await spawn('git', ['merge-base', branch, 'HEAD'])
   return parseFullDiff(await spawn('git', ['diff', diffAgainst.trim()]))

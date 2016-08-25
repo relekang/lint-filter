@@ -6,13 +6,14 @@ import Promise from 'bluebird'
 import spawn from './utils/spawn'
 import { getRulesFromCheckstyle } from './utils/checkstyle'
 import { parseString } from './parser'
+import type { Options } from './cli'
 
 export const readdir = Promise.promisify(fs.readdir)
 
-export default function setup(program: Object) {
-  switch (program.linter) {
+export default function setup(options: Options) {
+  switch (options.linter) {
     case 'eslint':
-      return exports.setupEslint(program)
+      return exports.setupEslint(options)
 
     default:
       throw new Error('Unknown linter')
