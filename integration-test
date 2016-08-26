@@ -17,7 +17,7 @@ function print_error () {
   has_failed=1
 }
 
-if cat eslint-result.xml | ./lint-filter.js > /dev/null ; then
+if cat eslint-result.xml | ./lint-filter.js; then
   print_error "stdin test failed"
 elif [[ $(cat eslint-result.xml | ./lint-filter.js | grep -oc "semi") != "1" ]]; then
   print_error "stdin output failed"
@@ -25,7 +25,7 @@ else
   echo "stdin success"
 fi
 
-if ./lint-filter.js eslint-result.xml > /dev/null ; then
+if ./lint-filter.js eslint-result.xml; then
   print_error "file test failed"
 elif [[ $(./lint-filter.js eslint-result.xml | grep -oc "semi") != "1" ]]; then
   print_error "args output failed"
