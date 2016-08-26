@@ -20,7 +20,6 @@ function handleResult(result, options) {
 
 export default async function main(): Promise<> {
   const options = parseOptions()
-  console.log(options)
 
   if (options.command === 'generate-config') {
     return setup(options)
@@ -39,7 +38,6 @@ export default async function main(): Promise<> {
       result = await checkString(diff, input, options)
     } else {
       result = await checkFiles(diff, options.files, options)
-      console.log(result)
     }
     return handleResult(result, options)
   }
