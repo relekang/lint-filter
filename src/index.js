@@ -9,11 +9,11 @@ import { checkFiles, checkString } from './checks'
 import { formatOutput } from './formatters'
 import { hasError } from './utils'
 import { getDiffInformation } from './utils/git'
-import { setSeverityToWarning } from './utils/checkstyle'
+import { setErrorToWarning } from './utils/checkstyle'
 import setup from './setup'
 
 function handleResult(result, options) {
-  const output = options.warning ? _.map(result, setSeverityToWarning) : result
+  const output = options.warning ? _.map(result, setErrorToWarning) : result
   console.log(formatOutput(options.format, output))
   process.exit(hasError(output) ? 1 : 0)
 }

@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import { getRulesFromCheckstyle, setSeverityToWarning } from '../../src/utils/checkstyle'
+import { getRulesFromCheckstyle, setErrorToWarning } from '../../src/utils/checkstyle'
 
 const checkstyleOutput = [
   { line: '7', column: '23', severity: 'error', message: 'Extra semicolon. (semi)',
@@ -18,7 +18,11 @@ test('getRulesFromCheckstyle(checkstyle) return a list of rules', async t => {
   t.deepEqual(result, ['semi', 'react/jsx-first-prop-new-line'])
 })
 
-test('setSeverityToWarning(item) should set severity', t => {
-  t.deepEqual(setSeverityToWarning({}), { severity: 'warning' })
-  t.deepEqual(setSeverityToWarning({ severity: 'error' }), { severity: 'warning' })
+test('setErrorToWarning(item) should error severity to warning', t => {
+  t.deepEqual(setErrorToWarning({ severity: 'error' }), { severity: 'warning' })
+})
+
+test('setErrorToWarning(item) should leave severity as is if it is not error', t => {
+  t.deepEqual(setErrorToWarning({}), {})
+  t.deepEqual(setErrorToWarning({ severity: 'info' }), { severity: 'info' })
 })
