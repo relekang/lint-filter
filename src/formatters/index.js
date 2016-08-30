@@ -46,7 +46,7 @@ export function generateStats(data: Array<CheckstyleItem>): Stats {
 }
 
 export function formatOutput(format: string, data: Array<CheckstyleItem>) {
-  if (!formatters.hasOwnProperty(format)) {
+  if (!{}.hasOwnProperty.call(formatters, format)) {
     throw new Error(`Formatter with name '${format}' does not exist.`)
   }
   return formatters[format](preFormatter(data), generateStats(data))
