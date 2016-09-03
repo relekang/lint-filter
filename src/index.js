@@ -35,6 +35,11 @@ export default async function main(): Promise<> {
     let result
     if (_.isEmpty(options.files)) {
       const input = await stdin()
+
+      if (input === '') {
+        throw new Error('stdin was empty')
+      }
+
       result = await checkString(diff, input, options)
     } else {
       result = await checkFiles(diff, options.files, options)
