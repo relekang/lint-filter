@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 git fetch origin
 
 if [ ! -d "./node_modules" ]; then
@@ -13,24 +13,28 @@ git apply test/fixtures/dummy.patch
 has_failed=0
 
 function print_error () {
-  echo >&2 Error: $1
+  echo -e >&2 "\e[31m\e[1mError: $1 failed\e[0m"
   has_failed=1
 }
 
+function print_success() {
+  echo -e "\e[32m\e[1m$1 success\e[0m"
+}
+
 if cat eslint-result.xml | ./lint-filter.js; then
-  print_error "stdin test failed"
+  print_error "stdin test"
 elif [[ $(cat eslint-result.xml | ./lint-filter.js | grep -oc "semi") != "1" ]]; then
-  print_error "stdin output failed"
+  print_error "stdin output"
 else
-  echo "stdin success"
+  print_success "args"
 fi
 
 if ./lint-filter.js eslint-result.xml; then
-  print_error "file test failed"
+  print_error "file test"
 elif [[ $(./lint-filter.js eslint-result.xml | grep -oc "semi") != "1" ]]; then
-  print_error "args output failed"
+  print_error "args output"
 else
-  echo "args success"
+  print_success "args"
 fi
 
 git checkout test/fixtures/dummy.js
