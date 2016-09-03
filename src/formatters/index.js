@@ -46,8 +46,23 @@ export function generateStats(data: Array<CheckstyleItem>): Stats {
 }
 
 export function formatOutput(format: string, data: Array<CheckstyleItem>) {
-  if (!{}.hasOwnProperty.call(formatters, format)) {
-    throw new Error(`Formatter with name '${format}' does not exist.`)
+  let formatter
+  if (/^require:/.test(format)) {
+    // $SuppressFlow somehow flow marks the returned of replace as any
+    formatter = require(format.replace(/^require:/, '')) // eslint-disable-line global-require
+
+    if (formatter.default) {
+      formatter = formatter.default
+    }
   }
-  return formatters[format](preFormatter(data), generateStats(data))
+
+  if (_.has(formatters, format)) {
+    formatter = formatters[format]
+  }
+
+  if (formatter) {
+    return formatter(preFormatter(data), generateStats(data))
+  }
+
+  throw new Error(`Could not find formatter: '${format}'`)
 }

@@ -18,7 +18,12 @@ export function parseOptions(): Options {
   program
     .version(info.version)
     .usage('[options] <subcommand|file ...>')
-    .option('-f, --format [format]', 'The output format.', 'text')
+    .option(
+      '-f, --format [format]',
+      'The output format. If prefixed with \'require:\' ' +
+      'the formatter will be loaded from an external package',
+      'text'
+    )
     .option('-b, --branch [branch]', 'The branch to diff against.')
     .option('-l, --linter [linter]', 'The linter that is used in the project.', 'eslint')
     .option('-w, --warning', 'Make all errors that make it through the filter a warning')

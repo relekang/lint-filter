@@ -66,10 +66,12 @@ $ lint-filter -h
 
   Options:
 
-    -h, --help             output usage information
-    -V, --version          output the version number
-    -f, --format [format]  The output format
-    -b, --branch [branch]  The branch to diff against
+  -h, --help             Output usage information
+  -V, --version          Output the version number
+  -f, --format [format]  The output format. If prefixed with 'require:' the formatter will be loaded from an external package
+  -b, --branch [branch]  The branch to diff against.
+  -l, --linter [linter]  The linter that is used in the project.
+  -w, --warning          Make all errors that make it through the filter a warning
 ```
 
 ### Sub commands
@@ -77,6 +79,34 @@ The first argument can either be a file or a sub command. The available sub comm
 below.
 
 * `list-files` - list the files in the current diff that lint-filter will use. Nice for faster linting.
+
+### External formatters
+An external formatter should export a function takes two arguments (input and stats) and returns
+a string with the formatted output. Below are examples of the structure that the two arguments
+will be on. Input is a list of files with lint messages and stats is an object with severity as key
+and an object with the counts as value.
+
+```js
+const input = [
+  {
+    filename: '~/dev/lint-filter/src/index.js',
+    messages: [
+      {
+        line: '7',
+        column: '23',
+        severity: 'error',
+        message: 'Extra semicolon. (semi)',
+        source: 'eslint.rules.semi',
+      },
+    ],
+  },
+]
+
+const stats = {
+  errors: { in: 1, out: 9, total: 10 },
+  warnings: { in: 3, out: 9, total: 11 },
+}
+```
 
 ## Contributing
 Firstly, all contributions is super appreciated :sparkles:
