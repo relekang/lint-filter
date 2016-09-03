@@ -1,7 +1,7 @@
 // @flow
 /* eslint-disable no-console */
 import _ from 'lodash'
-import stdin from 'stdin'
+import stdin from 'get-stdin'
 import Promise from 'bluebird'
 
 import { parseOptions } from './cli'
@@ -34,7 +34,7 @@ export default async function main(): Promise<> {
   if (!options.command) {
     let result
     if (_.isEmpty(options.files)) {
-      const input = await new Promise(resolve => stdin(resolve))
+      const input = await stdin()
       result = await checkString(diff, input, options)
     } else {
       result = await checkFiles(diff, options.files, options)
