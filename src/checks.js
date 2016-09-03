@@ -16,12 +16,12 @@ export function checkErrors(errors: Array<CheckstyleItem>, diff: DiffInfo) {
   return errors.map(error => checkError(error, diff))
 }
 
-export function checkFiles(diff: DiffInfo, files: Array<string>, options: Object) {
-  return parseFiles(files, options)
-    .then(errors => checkErrors(errors, diff))
+export async function checkFiles(diff: DiffInfo, files: Array<string>, options: Object) {
+  const errors = await parseFiles(files, options)
+  return checkErrors(errors, diff)
 }
 
-export function checkString(diff: DiffInfo, str: string, options: Object) {
-  return parseString(str, options)
-    .then(errors => checkErrors(errors, diff))
+export async function checkString(diff: DiffInfo, str: string, options: Object) {
+  const errors = await parseString(str, options)
+  return checkErrors(errors, diff)
 }
