@@ -26,7 +26,7 @@ export function parseOptions(): Options {
 
   let [command] = program.args
 
-  if (!_.includes(command, ['generate-config', 'list-files'])) {
+  if (!_.includes(['generate-config', 'list-files'], command)) {
     command = undefined
   }
 
