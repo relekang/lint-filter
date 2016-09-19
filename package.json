@@ -69,6 +69,6 @@
     "eslint-plugin-import": "1.14.0",
     "flow-bin": "0.32.0",
     "nyc": "8.1.0",
-    "sinon": "1.17.5"
+    "sinon": "1.17.6"
   }
 }
