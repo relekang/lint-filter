@@ -12,7 +12,7 @@ git apply test/fixtures/dummy.patch
 
 has_failed=0
 
-function print_error () {
+function print_error() {
   printf "\e[31m\e[1mError: $1 failed\e[0m\n" 1>&2
   has_failed=1
 }
