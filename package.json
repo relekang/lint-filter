@@ -9,7 +9,8 @@
     "test": "nyc -a --require babel-core/register ava",
     "lint": "eslint .",
     "flow": "flow check",
-    "coverage": "nyc -a --require babel-core/register --reporter cobertura ava --verbose"
+    "coverage": "nyc -a --require babel-core/register --reporter cobertura ava --verbose",
+    "integration-test": "sh integration-test"
   },
   "repository": {
     "type": "git",

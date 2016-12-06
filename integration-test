@@ -13,12 +13,12 @@ git apply test/fixtures/dummy.patch
 has_failed=0
 
 function print_error () {
-  echo -e >&2 "\e[31m\e[1mError: $1 failed\e[0m"
+  printf "\e[31m\e[1mError: $1 failed\e[0m\n" 1>&2
   has_failed=1
 }
 
 function print_success() {
-  echo -e "\e[32m\e[1m$1 success\e[0m"
+  printf "\e[32m\e[1m$1 success\e[0m\n"
 }
 
 if cat eslint-result.xml | ./lint-filter.js; then
