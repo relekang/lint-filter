@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "flow": "flow check",
     "coverage": "nyc -a --require babel-core/register --reporter cobertura ava --verbose",
-    "integration-test": "sh integration-test"
+    "integration-test": "bash integration-test"
   },
   "repository": {
     "type": "git",
