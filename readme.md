@@ -83,9 +83,8 @@ Firstly, all contributions is super appreciated :sparkles:
 
 If you have questions, bug report or feature requests you are encouraged to drop by our [gitter channel][gitter-link] and say hi. If you are comfortable with it bug reports in form of a pull-request with a broken test would be awesome. *Unsure about where the test belong?* Then create a new file in the test folder with your test. *Unsure about how to do create a pr?* You can check out [How to create a Pull Request on GitHub][pr-tutorial-link], a video tutorial by @kentcdodds or drop by the [gitter channel][gitter-link] and ask for help.
 
-
-[build-link]: https://ci.frigg.io/relekang/lint-filter
-[build-badge]: https://ci.frigg.io/relekang/lint-filter.svg
+[build-link]: https://circleci.com/gh/relekang/lint-filter/tree/master
+[build-badge]: https://circleci.com/gh/relekang/lint-filter/tree/master.svg?style=svg
 [coverage-badge]: https://ci.frigg.io/relekang/lint-filter/coverage.svg
 [appveyor-badge]: https://ci.appveyor.com/api/projects/status/0wwd6j3aehsg6ntv?svg=true
 [appveyor-link]: https://ci.appveyor.com/project/relekang/lint-filter
