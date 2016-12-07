@@ -1,5 +1,6 @@
 // @flow
 /* eslint-disable no-console */
+import 'babel-polyfill'
 import _ from 'lodash'
 import stdin from 'get-stdin'
 import Promise from 'bluebird'
