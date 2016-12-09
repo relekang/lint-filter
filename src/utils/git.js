@@ -42,5 +42,5 @@ export async function getDiffInformation(
   { branch = 'origin/master', hash }: Options = {}
 ): Promise<DiffInfo> {
   const diffAgainst = hash || await spawn('git', ['merge-base', branch, 'HEAD'])
-  return parseFullDiff(await spawn('git', ['diff', diffAgainst.trim()]))
+  return parseFullDiff(await spawn('git', ['--no-pager', 'diff', '--no-color', diffAgainst.trim()]))
 }
