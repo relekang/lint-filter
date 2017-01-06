@@ -10,11 +10,21 @@ export type DiffInfo = {
 }
 
 export function parseDiffRanges(diff: string) {
-  const matches = diff.match(/^@@ -\d+,\d+ \+(\d+),(\d+) @@/gm)
-  return _.map(matches, match => {
-    const [start, end] = /^@@ -\d+,\d+ \+(\d+),(\d+) @@/.exec(match).slice(1, 3)
-    return [parseInt(start, 10), parseInt(start, 10) + parseInt(end, 10)]
+  const lines = diff.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]/)
+  const ranges = []
+  let lineNumber
+  lines.forEach(line => {
+    const matches = /^@@ -\d+,\d+ \+(\d+),\d+ @@/.exec(line)
+    if (matches) lineNumber = --matches[1]
+    if (lineNumber !== undefined && /^\+/.test(line)) ranges.push(lineNumber)
+    if (lineNumber !== undefined && !/^-/.test(line)) lineNumber++
   })
+  return ranges.reduce((previous, current) => {
+    const last = previous[previous.length - 1]
+    if (last && current === last[1] + 1) last[1] = current
+    else previous.push([current, current])
+    return previous
+  }, [])
 }
 
 const filenameRegex = /^a\/([^\n]+) b\/[^\n]+/

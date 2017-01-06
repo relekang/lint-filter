@@ -17,20 +17,29 @@ test('parseDiffRanges(diff) should return empty array for no matches', t => {
 })
 
 test('parseDiffRanges(diff) should return diff range for one match', t => {
-  t.deepEqual(gitUtils.parseDiffRanges('@@ -0,0 +1,2 @@'), [[1, 3]])
-  t.deepEqual(gitUtils.parseDiffRanges('@@ -0,0 +14,20 @@'), [[14, 34]])
+  const diff = `
++++ b/src/gitUtils.js
+@@ -0,0 +1,2 @@
++const exec = Promise.promisify(cp.exec)
++export function parseDiffRanges(diff) {
++const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
+  `
+  t.deepEqual(gitUtils.parseDiffRanges(diff), [[1, 3]])
 })
 
 test('parseDiffRanges(diff) should return diff range for multiple matches', t => {
   const diff = `
 +++ b/src/gitUtils.js
 @@ -8,27 +8,43 @@
-const exec = Promise.promisify(cp.exec)
-export function parseDiffRanges(diff) {
++const exec = Promise.promisify(cp.exec)
++export function parseDiffRanges(diff) {
 const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
 @@ -0,0 +45,55 @@
+const exec = Promise.promisify(cp.exec)
+export function parseDiffRanges(diff) {
++const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
   `
-  t.deepEqual(gitUtils.parseDiffRanges(diff), [[8, 51], [45, 100]])
+  t.deepEqual(gitUtils.parseDiffRanges(diff), [[8, 9], [47, 47]])
 })
 
 test(
@@ -46,10 +55,13 @@ test.serial(
     const diff = await gitUtils.getDiffInformation()
 
     t.deepEqual(diff, {
-      'lint-filter.js': [[1, 3], [2, 5]],
-      'src/index.js': [[4, 17]],
-      'src/utils.js': [[3, 44], [45, 52], [60, 67]],
-      'test/utils_tests.js': [[40, 65], [74, 122]],
+      'lint-filter.js': [],
+      'src/index.js': [[7, 7], [13, 13]],
+      'src/utils.js': [
+        [6, 7], [10, 10], [13, 13], [20, 20], [27, 33],
+        [35, 36], [39, 40], [48, 48], [63, 66],
+      ],
+      'test/utils_tests.js': [[43, 45], [47, 47], [50, 58], [61, 61], [77, 121]],
     })
   }
 )

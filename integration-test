@@ -23,6 +23,14 @@ function print_success() {
 
 if cat eslint-result.xml | ./lint-filter.js; then
   print_error "stdin test"
+elif [[ $(cat eslint-result.xml | ./lint-filter.js | grep -oc "no-console") != "1" ]]; then
+  print_error "stdin output"
+else
+  print_success "args"
+fi
+
+if cat eslint-result.xml | ./lint-filter.js; then
+  print_error "stdin test"
 elif [[ $(cat eslint-result.xml | ./lint-filter.js | grep -oc "semi") != "1" ]]; then
   print_error "stdin output"
 else
