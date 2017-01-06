@@ -1,6 +1,6 @@
 {
   "name": "lint-filter",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Lint touched code stricter",
   "main": "./lib",
   "bin": "./lint-filter.js",
