@@ -27,7 +27,7 @@ const stats = {
 
 const output = (
   '\u001b[4mFile: ~/dev/lint-filter/src/index.js\u001b[24m\n' +
-  '  ✖ \u001b[90m7:23\u001b[39m Extra semicolon. (semi)\n' +
+  '  \u001b[31m✖\u001b[39m \u001b[90m7:23\u001b[39m Extra semicolon. (semi)\n' +
   '\n1 of 10 errors and 3 of 11 warnings'
 )
 

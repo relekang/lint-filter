@@ -6,9 +6,10 @@ import type { OutputFormat, Stats } from './'
 
 function resultText(result) {
   return _.map(result, file => {
-    const messages = _.map(file.messages, message =>
-      `  ✖ ${chalk.gray(`${message.line}:${message.column}`)} ${message.message}\n`
-    ).join('')
+    const messages = _.map(file.messages, message => {
+      const icon = message.severity === 'warning' ? chalk.yellow('⚠') : chalk.red('✖')
+      return `  ${icon} ${chalk.gray(`${message.line}:${message.column}`)} ${message.message}\n`
+    }).join('')
     return `${chalk.underline(`File: ${file.filename}`)}\n${messages}`
   }).join('')
 }
