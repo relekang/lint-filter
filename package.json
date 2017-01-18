@@ -68,7 +68,7 @@
     "eslint": "3.4.0",
     "eslint-config-airbnb-base": "5.0.3",
     "eslint-plugin-import": "1.14.0",
-    "flow-bin": "0.32.0",
+    "flow-bin": "0.34.0",
     "nyc": "8.1.0",
     "sinon": "1.17.6"
   }
