@@ -40,6 +40,13 @@ const parseStringResult = [
     source: 'eslint.rules.semi',
     file: 'lint-filter/src/index.js',
   },
+  { line: '7',
+    column: '23',
+    severity: 'error',
+    message: 'Extra semicolon. (semi)',
+    source: 'eslint.rules.semi',
+    file: 'lint-filter/src/index.js',
+  },
 ]
 
 test.serial('parseString(str) should parse xml and make paths relative', async t => {
