@@ -16,7 +16,8 @@ export type CheckstyleItem = {
 export const readFile = Promise.promisify(fs.readFile)
 
 export function makePathRelative(filepath: string): string {
-  return filepath.replace(`${process.cwd()}`, '').replace(/\\/g, '/').slice(1)
+  const path = filepath.replace(`${process.cwd()}`, '').replace(/\\/g, '/')
+  return path.substr(0, 1) === '/' ? path.substr(1) : path
 }
 
 export function mapErrorsFromFileBlock(file: Object) {

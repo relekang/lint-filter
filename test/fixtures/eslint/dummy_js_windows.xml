@@ -7,4 +7,7 @@
     <error line="9" column="1" severity="warning" message="Unexpected console statement. (no-console)" source="eslint.rules.no-console" />
     <error line="11" column="14" severity="error" message="Extra semicolon. (semi)" source="eslint.rules.semi" />
   </file>
+  <file name="lint-filter\test\fixtures\dummy.js">
+    <error line="11" column="14" severity="error" message="Extra semicolon. (semi)" source="eslint.rules.semi" />
+  </file>
 </checkstyle>
