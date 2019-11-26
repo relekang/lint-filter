@@ -20,7 +20,7 @@ const output =
 `<?xml version="1.0" encoding="utf-8"?>
 <checkstyle version="4.3">
 <file name="~/dev/lint-filter/src/index.js">
-<error line="7" column="23" severity="error" message="Extra semicolon. (semi)" />
+<error line="7" column="23" severity="error" message="Extra semicolon. (semi)" source="eslint.rules.semi" />
 </file>
 </checkstyle>`
 
