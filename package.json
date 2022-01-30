@@ -75,6 +75,6 @@
     "flow-bin": "^0.32.0",
     "nyc": "^15.1.0",
     "sinon": "^1.17.7",
-    "standard-version": "^6.0.1"
+    "standard-version": "^9.3.2"
   }
 }
