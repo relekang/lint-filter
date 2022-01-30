@@ -1,8 +1,8 @@
 // @flow
-import checkstyleFormatter from 'checkstyle-formatter'
+import checkstyleFormatter from 'checkstyle-formatter';
 
-import type { OutputFormat } from './'
+import type { OutputFormat } from './';
 
 export default function checkstyle(result: OutputFormat) {
-  return checkstyleFormatter(result)
+  return checkstyleFormatter(result);
 }

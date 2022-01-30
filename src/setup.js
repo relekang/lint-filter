@@ -1,48 +1,52 @@
 // @flow
-import _ from 'lodash'
-import fs from 'fs'
-import Promise from 'bluebird'
+import _ from 'lodash';
+import fs from 'fs';
+import Promise from 'bluebird';
 
-import spawn from './utils/spawn'
-import { getRulesFromCheckstyle } from './utils/checkstyle'
-import { parseString } from './parser'
-import type { Options } from './cli'
+import spawn from './utils/spawn';
+import { getRulesFromCheckstyle } from './utils/checkstyle';
+import { parseString } from './parser';
+import type { Options } from './cli';
 
-export const readdir = Promise.promisify(fs.readdir)
+export const readdir = Promise.promisify(fs.readdir);
 
 export default function setup(options: Options) {
   switch (options.linter) {
     case 'eslint':
-      return exports.setupEslint(options)
+      return exports.setupEslint(options);
 
     default:
-      throw new Error('Unknown linter')
+      throw new Error('Unknown linter');
   }
 }
 
 export async function getEslintRcFilename(path: string = '.'): Promise<string> {
-  const files = await exports.readdir(path)
+  const files = await exports.readdir(path);
   return files.reduce((last, item) => {
     if (/^\.eslintrc/.test(item)) {
-      return item
+      return item;
     }
-    return last
-  })
+    return last;
+  });
 }
 
 export async function setupEslint(): Promise<> {
-  let result
+  let result;
   try {
-    result = await spawn('eslint', ['.', '-f', 'checkstyle'])
+    result = await spawn('eslint', ['.', '-f', 'checkstyle']);
   } catch (error) {
-    result = error.stdout
+    result = error.stdout;
   }
 
-  const rules = getRulesFromCheckstyle(await parseString(result))
+  const rules = getRulesFromCheckstyle(await parseString(result));
   const config = {
     extends: await getEslintRcFilename(),
-    rules: _.reduce(rules, (last, rule) => _.assign({}, last, { [rule]: 0 }), {}),
-  }
+    rules: _.reduce(
+      rules,
+      (last, rule) => _.assign({}, last, { [rule]: 0 }),
+      {}
+    ),
+  };
 
-  console.log(JSON.stringify(config, null, 2)) // eslint-disable-line no-console
+  console.log(JSON.stringify(config, null, 2));
 }

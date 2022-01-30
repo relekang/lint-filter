@@ -187,4 +187,4 @@ index dea55a3..ac63070 100644
 +    },
 +  ]
 +  t.same(utils.hasError(input), false)
-+})`
++})`;

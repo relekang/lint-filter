@@ -1,8 +1,8 @@
 // @flow
-import _ from 'lodash'
-import program from 'commander'
+import _ from 'lodash';
+import program from 'commander';
 
-import info from '../package.json'
+import info from '../package.json';
 
 export type Options = {
   command: ?string,
@@ -12,7 +12,7 @@ export type Options = {
   linter: string,
   warning: boolean,
   hash?: string,
-}
+};
 
 export function parseOptions(): Options {
   program
@@ -20,19 +20,26 @@ export function parseOptions(): Options {
     .usage('[options] <subcommand|file ...>')
     .option(
       '-f, --format [format]',
-      'The output format. If prefixed with \'require:\' ' +
-      'the formatter will be loaded from an external package',
+      "The output format. If prefixed with 'require:' " +
+        'the formatter will be loaded from an external package',
       'text'
     )
     .option('-b, --branch [branch]', 'The branch to diff against.')
-    .option('-l, --linter [linter]', 'The linter that is used in the project.', 'eslint')
-    .option('-w, --warning', 'Make all errors that make it through the filter a warning')
-    .parse(process.argv)
+    .option(
+      '-l, --linter [linter]',
+      'The linter that is used in the project.',
+      'eslint'
+    )
+    .option(
+      '-w, --warning',
+      'Make all errors that make it through the filter a warning'
+    )
+    .parse(process.argv);
 
-  let [command] = program.args
+  let [command] = program.args;
 
   if (!_.includes(['generate-config', 'list-files'], command)) {
-    command = undefined
+    command = undefined;
   }
 
   return {
@@ -44,5 +51,5 @@ export function parseOptions(): Options {
     warning: process.env.LINT_FILTER_WARNING
       ? JSON.parse(process.env.LINT_FILTER_WARNING)
       : !!program.warning,
-  }
+  };
 }

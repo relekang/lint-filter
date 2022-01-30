@@ -1,29 +1,36 @@
 // @flow
-import cp from 'child_process'
-import Promise from 'bluebird'
+import cp from 'child_process';
+import Promise from 'bluebird';
 
-export default function spawn(file: string, args: Array<string>): Promise<string> {
+export default function spawn(
+  file: string,
+  args: Array<string>
+): Promise<string> {
   return new Promise((resolve, reject) => {
-    let stdout = ''
-    let stderr = ''
+    let stdout = '';
+    let stderr = '';
 
-    const process = cp.spawn(file, args)
-    process.stdout.on('data', data => { stdout += data })
-    process.stderr.on('data', data => { stderr += data })
+    const process = cp.spawn(file, args);
+    process.stdout.on('data', (data) => {
+      stdout += data;
+    });
+    process.stderr.on('data', (data) => {
+      stderr += data;
+    });
 
-    process.on('close', code => {
+    process.on('close', (code) => {
       if (code === 0) {
-        resolve(stdout)
+        resolve(stdout);
       } else {
-        const error = new Error(`${file} ${args.join(' ')} failed`)
+        const error = new Error(`${file} ${args.join(' ')} failed`);
         // $SuppressFlow
-        error.stdout = stdout
+        error.stdout = stdout;
         // $SuppressFlow
-        error.stderr = stderr
+        error.stderr = stderr;
         // $SuppressFlow
-        error.code = code
-        reject(error)
+        error.code = code;
+        reject(error);
       }
-    })
-  })
+    });
+  });
 }

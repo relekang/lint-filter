@@ -1,6 +1,10 @@
-import test from 'ava'
+import test from 'ava';
 
-import { formatOutput, generateStats, preFormatter } from '../../src/formatters'
+import {
+  formatOutput,
+  generateStats,
+  preFormatter,
+} from '../../src/formatters';
 
 const input = [
   {
@@ -30,7 +34,7 @@ const input = [
     file: '~/dev/lint-filter/src/index.js',
     isInDiff: true,
   },
-]
+];
 
 const preFormatterOutput = [
   {
@@ -45,42 +49,42 @@ const preFormatterOutput = [
       },
     ],
   },
-]
+];
 
-const textOutput = 'File: ~/dev/lint-filter/src/index.js\n  ' +
+const textOutput =
+  'File: ~/dev/lint-filter/src/index.js\n  ' +
   '✖ 7:23 Extra semicolon. (semi)\n\n' +
-  '1 of 2 errors and 0 of 1 warnings'
+  '1 of 2 errors and 0 of 1 warnings';
 
+test('preFormatter(data) should return formatted output', (t) => {
+  t.deepEqual(preFormatter(input), preFormatterOutput);
+});
 
-test('preFormatter(data) should return formatted output', t => {
-  t.deepEqual(preFormatter(input), preFormatterOutput)
-})
+test('generateStats(data) should return stats for data', (t) => {
+  const stats = generateStats(input);
 
-test('generateStats(data) should return stats for data', t => {
-  const stats = generateStats(input)
+  t.deepEqual(stats.errors, { in: 1, out: 1, total: 2 });
+  t.deepEqual(stats.warnings, { in: 0, out: 1, total: 1 });
+});
 
-  t.deepEqual(stats.errors, { in: 1, out: 1, total: 2 })
-  t.deepEqual(stats.warnings, { in: 0, out: 1, total: 1 })
-})
+test('formatOutput(format, data) should call correct formatter', (t) => {
+  const output = formatOutput('text', input);
+  t.is(output, textOutput);
+});
 
-test('formatOutput(format, data) should call correct formatter', t => {
-  const output = formatOutput('text', input)
-  t.is(output, textOutput)
-})
+test('formatOutput(format, data) should call correct external formatter', (t) => {
+  const output = formatOutput('require:./text', input);
+  t.is(output, textOutput);
+});
 
-test('formatOutput(format, data) should call correct external formatter', t => {
-  const output = formatOutput('require:./text', input)
-  t.is(output, textOutput)
-})
-
-test('formatOutput(format, data) should throw if formatter does not exist', t => {
+test('formatOutput(format, data) should throw if formatter does not exist', (t) => {
   t.throws(() => {
-    formatOutput('format..', input)
-  }, Error)
-})
+    formatOutput('format..', input);
+  }, Error);
+});
 
-test('formatOutput(format, data) should throw if external formatter does not exist', t => {
+test('formatOutput(format, data) should throw if external formatter does not exist', (t) => {
   t.throws(() => {
-    formatOutput('require:formaty', input)
-  }, Error)
-})
+    formatOutput('require:formaty', input);
+  }, Error);
+});
