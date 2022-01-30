@@ -1,24 +1,22 @@
-// @flow
-
-import 'babel-polyfill';
 import _ from 'lodash';
 import stdin from 'get-stdin';
 
-import { parseOptions } from './cli';
+import { Options, parseOptions } from './cli';
 import { checkFiles, checkString } from './checks';
 import { formatOutput } from './formatters';
 import { hasError } from './utils';
 import { getDiffInformation } from './utils/git';
 import { setErrorToWarning } from './utils/checkstyle';
 import setup from './setup';
+import { CheckstyleItemWithDiffCheck } from './parser';
 
-function handleResult(result, options) {
+function handleResult(result: CheckstyleItemWithDiffCheck[], options: Options) {
   const output = options.warning ? _.map(result, setErrorToWarning) : result;
   console.log(formatOutput(options.format, output));
   process.exit(hasError(output) ? 1 : 0);
 }
 
-export default async function main(): Promise<> {
+export default async function main(): Promise<void> {
   const options = parseOptions();
 
   if (options.command === 'generate-config') {
@@ -40,9 +38,9 @@ export default async function main(): Promise<> {
         throw new Error('stdin was empty');
       }
 
-      result = await checkString(diff, input, options);
+      result = await checkString(diff, input);
     } else {
-      result = await checkFiles(diff, options.files, options);
+      result = await checkFiles(diff, options.files);
     }
     return handleResult(result, options);
   }

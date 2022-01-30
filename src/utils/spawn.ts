@@ -1,10 +1,6 @@
-// @flow
 import cp from 'child_process';
 
-export default function spawn(
-  file: string,
-  args: Array<string>
-): Promise<string> {
+export function spawn(file: string, args: Array<string>): Promise<string> {
   return new Promise((resolve, reject) => {
     let stdout = '';
     let stderr = '';
@@ -22,11 +18,11 @@ export default function spawn(
         resolve(stdout);
       } else {
         const error = new Error(`${file} ${args.join(' ')} failed`);
-        // $SuppressFlow
+        // @ts-expect-error ---
         error.stdout = stdout;
-        // $SuppressFlow
+        // @ts-expect-error ---
         error.stderr = stderr;
-        // $SuppressFlow
+        // @ts-expect-error ---
         error.code = code;
         reject(error);
       }

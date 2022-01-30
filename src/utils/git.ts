@@ -1,25 +1,22 @@
-// @flow
 import _ from 'lodash';
 
-import spawn from './spawn';
-
-import type { Options } from '../cli';
+import { spawn } from './spawn';
 
 export type DiffInfo = {
-  [key: string]: Array<Array<number>>,
+  [K in string]: Array<Array<number>>;
 };
 
 export function parseDiffRanges(diff: string) {
   const lines = diff.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]/);
-  const ranges = [];
-  let lineNumber;
+  const ranges: number[] = [];
+  let lineNumber: number;
   lines.forEach((line) => {
     const matches = /^@@ -\d+,\d+ \+(\d+),\d+ @@/.exec(line);
-    if (matches) lineNumber = --matches[1];
+    if (matches && matches[1]) lineNumber = parseInt(matches[1]) - 1;
     if (lineNumber !== undefined && /^\+/.test(line)) ranges.push(lineNumber);
     if (lineNumber !== undefined && !/^-/.test(line)) lineNumber++;
   });
-  return ranges.reduce((previous, current) => {
+  return ranges.reduce<[number, number][]>((previous, current) => {
     const last = previous[previous.length - 1];
     if (last && current === last[1] + 1) last[1] = current;
     else previous.push([current, current]);
@@ -40,14 +37,18 @@ export function parseDiffForFile(diff: string) {
 export function parseFullDiff(diff: string) {
   return _(`\n${diff}`.split('\ndiff --git '))
     .map(parseDiffForFile)
-    .filter(_.isObject)
-    .reduce(
-      (lastValue, { filename, ranges }) =>
-        _.assign({}, lastValue, {
-          [filename]: lastValue[filename]
-            ? _.concat(lastValue[filename], ranges)
-            : ranges,
-        }),
+    .filter((item): item is { filename: string; ranges: [number, number][] } =>
+      _.isObject(item)
+    )
+    .reduce<Record<string, [number, number][]>>(
+      (lastValue, { filename, ranges }) => {
+        if (lastValue[filename]) {
+          lastValue[filename] = _.concat(lastValue[filename], ranges);
+        } else {
+          lastValue[filename] = ranges;
+        }
+        return lastValue;
+      },
       {}
     );
 }
@@ -55,7 +56,7 @@ export function parseFullDiff(diff: string) {
 export async function getDiffInformation({
   branch = 'origin/master',
   hash,
-}: Options = {}): Promise<DiffInfo> {
+}: { branch?: string; hash?: string } = {}): Promise<DiffInfo> {
   const diffAgainst =
     hash || (await spawn('git', ['merge-base', branch, 'HEAD']));
   return parseFullDiff(

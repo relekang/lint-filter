@@ -1,18 +1,32 @@
 require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
-  extends: ['relekang', 'relekang/configs/flowtype'],
-  parser: '@babel/eslint-parser',
+  extends: ['relekang', 'relekang/configs/typescript', 'relekang/configs/jest'],
+  parser: '@typescript-eslint/parser',
   env: {
     node: true,
   },
   settings: {
     'eslint-config-relekang': {
       babel: true,
-      typescript: false,
+      typescript: true,
       react: false,
-      jest: false,
+      jest: true,
     },
   },
-  overrides: [{ files: ['test/**'], rules: { 'no-useless-escape': 'off' } }],
+  overrides: [
+    {
+      files: ['test/**'],
+      rules: {
+        'no-useless-escape': 'off',
+      },
+    },
+    {
+      files: ['test/fixtures/dummy.js'],
+      rules: {
+        'prettier/prettier': 'off',
+        semi: ['error', 'never'],
+      },
+    },
+  ],
 };

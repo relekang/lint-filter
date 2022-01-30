@@ -1,12 +1,13 @@
-import test from 'ava';
+import stripAnsi from 'strip-ansi';
 
 import {
   formatOutput,
   generateStats,
   preFormatter,
 } from '../../src/formatters';
+import { CheckstyleItemWithDiffCheck } from '../../src/parser';
 
-const input = [
+const input: CheckstyleItemWithDiffCheck[] = [
   {
     line: '5',
     column: '23',
@@ -56,35 +57,35 @@ const textOutput =
   '✖ 7:23 Extra semicolon. (semi)\n\n' +
   '1 of 2 errors and 0 of 1 warnings';
 
-test('preFormatter(data) should return formatted output', (t) => {
-  t.deepEqual(preFormatter(input), preFormatterOutput);
+test('preFormatter(data) should return formatted output', () => {
+  expect(preFormatter(input)).toEqual(preFormatterOutput);
 });
 
-test('generateStats(data) should return stats for data', (t) => {
+test('generateStats(data) should return stats for data', () => {
   const stats = generateStats(input);
 
-  t.deepEqual(stats.errors, { in: 1, out: 1, total: 2 });
-  t.deepEqual(stats.warnings, { in: 0, out: 1, total: 1 });
+  expect(stats.errors).toEqual({ in: 1, out: 1, total: 2 });
+  expect(stats.warnings).toEqual({ in: 0, out: 1, total: 1 });
 });
 
-test('formatOutput(format, data) should call correct formatter', (t) => {
+test('formatOutput(format, data) should call correct formatter', () => {
   const output = formatOutput('text', input);
-  t.is(output, textOutput);
+  expect(stripAnsi(output)).toEqual(textOutput);
 });
 
-test('formatOutput(format, data) should call correct external formatter', (t) => {
+test('formatOutput(format, data) should call correct external formatter', () => {
   const output = formatOutput('require:./text', input);
-  t.is(output, textOutput);
+  expect(stripAnsi(output)).toEqual(textOutput);
 });
 
-test('formatOutput(format, data) should throw if formatter does not exist', (t) => {
-  t.throws(() => {
+test('formatOutput(format, data) should throw if formatter does not exist', () => {
+  expect(() => {
     formatOutput('format..', input);
-  });
+  }).toThrow();
 });
 
-test('formatOutput(format, data) should throw if external formatter does not exist', (t) => {
-  t.throws(() => {
+test('formatOutput(format, data) should throw if external formatter does not exist', () => {
+  expect(() => {
     formatOutput('require:formaty', input);
-  });
+  }).toThrow();
 });

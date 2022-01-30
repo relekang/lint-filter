@@ -1,11 +1,10 @@
-import test from 'ava';
-
+import { CheckstyleItem } from '../../src/parser';
 import {
   getRulesFromCheckstyle,
   setErrorToWarning,
 } from '../../src/utils/checkstyle';
 
-const checkstyleOutput = [
+const checkstyleOutput: CheckstyleItem[] = [
   {
     line: '7',
     column: '23',
@@ -33,19 +32,19 @@ const checkstyleOutput = [
   },
 ];
 
-test('getRulesFromCheckstyle(checkstyle) return a list of rules', async (t) => {
+test('getRulesFromCheckstyle(checkstyle) return a list of rules', async () => {
   const result = getRulesFromCheckstyle(checkstyleOutput);
 
-  t.deepEqual(result, ['semi', 'react/jsx-first-prop-new-line']);
+  expect(result).toEqual(['semi', 'react/jsx-first-prop-new-line']);
 });
 
-test('setErrorToWarning(item) should error severity to warning', (t) => {
-  t.deepEqual(setErrorToWarning({ severity: 'error' }), {
+test('setErrorToWarning(item) should error severity to warning', () => {
+  expect(setErrorToWarning({ severity: 'error' })).toEqual({
     severity: 'warning',
   });
 });
 
-test('setErrorToWarning(item) should leave severity as is if it is not error', (t) => {
-  t.deepEqual(setErrorToWarning({}), {});
-  t.deepEqual(setErrorToWarning({ severity: 'info' }), { severity: 'info' });
+test('setErrorToWarning(item) should leave severity as is if it is not error', () => {
+  expect(setErrorToWarning({})).toEqual({});
+  expect(setErrorToWarning({ severity: 'info' })).toEqual({ severity: 'info' });
 });

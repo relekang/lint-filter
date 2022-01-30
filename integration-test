@@ -1,13 +1,26 @@
 #!/usr/bin/env bash
+
+set -e
+
 git fetch origin
 
 if [ ! -d "./node_modules" ]; then
   npm install
 fi
 
-npm run prepublish > /dev/null
+clean() {
+  git checkout test/fixtures/dummy.js
+  rm -f eslint-result.xml
+}
+
+trap clean EXIT
+
+npm run prepack
 
 git apply test/fixtures/dummy.patch
+
+set +e
+
 ./node_modules/.bin/eslint --no-ignore test/fixtures/dummy.js -f checkstyle > eslint-result.xml
 
 has_failed=0
@@ -45,7 +58,5 @@ else
   print_success "args"
 fi
 
-git checkout test/fixtures/dummy.js
-rm -f eslint-result.xml
 
 exit $has_failed

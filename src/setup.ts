@@ -1,14 +1,10 @@
-// @flow
 import _ from 'lodash';
-import fs from 'fs';
+import fs from 'fs/promises';
 
-import spawn from './utils/spawn';
+import { spawn } from './utils/spawn';
 import { getRulesFromCheckstyle } from './utils/checkstyle';
 import { parseString } from './parser';
-import type { Options } from './cli';
-import { promisify } from 'util';
-
-export const readdir = promisify(fs.readdir);
+import { Options } from './cli';
 
 export default function setup(options: Options) {
   switch (options.linter) {
@@ -21,7 +17,7 @@ export default function setup(options: Options) {
 }
 
 export async function getEslintRcFilename(path: string = '.'): Promise<string> {
-  const files = await exports.readdir(path);
+  const files = await fs.readdir(path);
   return files.reduce((last, item) => {
     if (/^\.eslintrc/.test(item)) {
       return item;
@@ -30,11 +26,12 @@ export async function getEslintRcFilename(path: string = '.'): Promise<string> {
   });
 }
 
-export async function setupEslint(): Promise<> {
+export async function setupEslint(): Promise<void> {
   let result;
   try {
     result = await spawn('eslint', ['.', '-f', 'checkstyle']);
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
     result = error.stdout;
   }
 

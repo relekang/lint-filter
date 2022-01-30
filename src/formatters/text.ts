@@ -1,10 +1,9 @@
-// @flow
 import _ from 'lodash';
 import chalk from 'chalk';
 
-import type { OutputFormat, Stats } from './';
+import { OutputFormat, Stats } from './';
 
-function resultText(result) {
+function resultText(result: OutputFormat) {
   return _.map(result, (file) => {
     const messages = _.map(file.messages, (message) => {
       const icon =
@@ -17,7 +16,7 @@ function resultText(result) {
   }).join('');
 }
 
-function statsText(stats) {
+function statsText(stats: Stats) {
   return (
     `${stats.errors.in} of ${stats.errors.total} errors and ` +
     `${stats.warnings.in} of ${stats.warnings.total} warnings`
