@@ -57,7 +57,7 @@ const parseStringResult = [
 test.serial(
   'parseString(str) should parse xml and make paths relative',
   async (t) => {
-    const xml = await parser.readFile('./fixtures/eslint/extra-semi.xml');
+    const xml = await parser.readFile('./test/fixtures/eslint/extra-semi.xml');
     sinon.stub(process, 'cwd').returns('/Users/rolf/dev');
     const parsed = await parser.parseString(xml.toString());
     t.deepEqual(parsed, parseStringResult, JSON.stringify(parsed));
@@ -68,7 +68,9 @@ test.serial(
 test.serial(
   'parseString(str) should parse xml and convert windows paths',
   async (t) => {
-    const xml = await parser.readFile('./fixtures/eslint/dummy_js_windows.xml');
+    const xml = await parser.readFile(
+      './test/fixtures/eslint/dummy_js_windows.xml'
+    );
     sinon.stub(process, 'cwd').returns('C:\\dev');
     const parsed = await parser.parseString(xml.toString());
     t.is(first(parsed).file, 'lint-filter/test/fixtures/dummy.js');
@@ -81,8 +83,8 @@ test.serial(
   async (t) => {
     sinon.stub(parser, 'parseFile').returns(Promise.resolve(parseStringResult));
     const result = await parser.parseFiles([
-      './fixtures/eslint/extra-semi.xml',
-      './fixtures/eslint/extra-semi.xml',
+      './test/fixtures/eslint/extra-semi.xml',
+      './test/fixtures/eslint/extra-semi.xml',
     ]);
 
     t.deepEqual(result, [...parseStringResult, ...parseStringResult]);

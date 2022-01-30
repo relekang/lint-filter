@@ -12,6 +12,6 @@ const filePath = path.resolve(__dirname, '../src/index.js');
 test('CLI should show help section for option -h', async (t) => {
   const output = await execFile(babelPath, [filePath, '-h']);
   t.truthy(
-    _.includes(output.stdout, 'Usage: index [options] <subcommand|file ...>');
+    _.includes(output.stdout, 'Usage: index [options] <subcommand|file ...>')
   );
 });

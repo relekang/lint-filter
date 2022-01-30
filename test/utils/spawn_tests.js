@@ -3,7 +3,7 @@ import test from 'ava';
 import spawn from '../../src/utils/spawn';
 
 test('spawn should resolve a promise with the result', async (t) => {
-  const result = await spawn('ls', ['../../src']);
+  const result = await spawn('ls', ['./src']);
 
   t.deepEqual(
     result,
@@ -11,6 +11,6 @@ test('spawn should resolve a promise with the result', async (t) => {
   );
 });
 
-test('spawn should reject a promise with an error', (t) => {
-  t.throws(spawn('ls', ['non-existing-directory']));
+test('spawn should reject a promise with an error', async (t) => {
+  await t.throwsAsync(spawn('ls', ['non-existing-directory']));
 });

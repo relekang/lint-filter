@@ -80,11 +80,11 @@ test('formatOutput(format, data) should call correct external formatter', (t) =>
 test('formatOutput(format, data) should throw if formatter does not exist', (t) => {
   t.throws(() => {
     formatOutput('format..', input);
-  }, Error);
+  });
 });
 
 test('formatOutput(format, data) should throw if external formatter does not exist', (t) => {
   t.throws(() => {
     formatOutput('require:formaty', input);
-  }, Error);
+  });
 });
