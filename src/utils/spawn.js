@@ -1,6 +1,5 @@
 // @flow
 import cp from 'child_process';
-import Promise from 'bluebird';
 
 export default function spawn(
   file: string,

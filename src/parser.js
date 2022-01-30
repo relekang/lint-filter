@@ -1,8 +1,8 @@
 // @flow
 import _, { assign, isEmpty } from 'lodash';
 import fs from 'fs';
-import Promise from 'bluebird';
 import xml2js from 'xml2js';
+import { promisify } from 'util';
 
 export type CheckstyleItem = {
   line: string,
@@ -13,7 +13,7 @@ export type CheckstyleItem = {
   file: string,
 };
 
-export const readFile = Promise.promisify(fs.readFile);
+export const readFile = promisify(fs.readFile);
 
 export function makePathRelative(filepath: string): string {
   const path = filepath.replace(`${process.cwd()}`, '').replace(/\\/g, '/');
@@ -26,7 +26,7 @@ export function mapErrorsFromFileBlock(file: Object) {
   );
 }
 
-export const xmlParser = Promise.promisify(new xml2js.Parser().parseString);
+export const xmlParser = promisify(new xml2js.Parser().parseString);
 export async function parseString(str: string): Promise<Array<CheckstyleItem>> {
   const { checkstyle } = await exports.xmlParser(str);
 

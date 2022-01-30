@@ -37,10 +37,10 @@ index 9c9b4c1..6306db8 100644
 --- a/src/utils.js
 +++ b/src/utils.js
 @@ -3,33 +3,41 @@ import cp from 'child_process'
- import Promise from 'bluebird'
+ import {promisify} from 'util'
  import inRange from 'in-range'
 
--export const exec = Promise.promisify(cp.exec)
+-export const exec = promisify(cp.exec)
 +export const execFile = Promise.promisify(cp.execFile)
 +export const execFileSync = cp.execFileSync
 

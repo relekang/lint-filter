@@ -1,6 +1,6 @@
 import test from 'ava';
 import sinon from 'sinon';
-import Promise from 'bluebird';
+
 import diffFixture from '../fixtures/diff';
 
 import * as gitUtils from '../../src/utils/git';
@@ -20,7 +20,7 @@ test('parseDiffRanges(diff) should return diff range for one match', (t) => {
   const diff = `
 +++ b/src/gitUtils.js
 @@ -0,0 +1,2 @@
-+const exec = Promise.promisify(cp.exec)
++const exec = promisify(cp.exec)
 +export function parseDiffRanges(diff) {
 +const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
   `;
@@ -31,11 +31,11 @@ test('parseDiffRanges(diff) should return diff range for multiple matches', (t) 
   const diff = `
 +++ b/src/gitUtils.js
 @@ -8,27 +8,43 @@
-+const exec = Promise.promisify(cp.exec)
++const exec = promisify(cp.exec)
 +export function parseDiffRanges(diff) {
 const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
 @@ -0,0 +45,55 @@
-const exec = Promise.promisify(cp.exec)
+const exec = promisify(cp.exec)
 export function parseDiffRanges(diff) {
 +const matches = diff.match(/\@\@ -\d+,\d+ \+(\d+),(\d+) \@\@/g)
   `;

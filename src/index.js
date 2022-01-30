@@ -3,7 +3,6 @@
 import 'babel-polyfill';
 import _ from 'lodash';
 import stdin from 'get-stdin';
-import Promise from 'bluebird';
 
 import { parseOptions } from './cli';
 import { checkFiles, checkString } from './checks';

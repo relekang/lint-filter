@@ -1,14 +1,14 @@
 // @flow
 import _ from 'lodash';
 import fs from 'fs';
-import Promise from 'bluebird';
 
 import spawn from './utils/spawn';
 import { getRulesFromCheckstyle } from './utils/checkstyle';
 import { parseString } from './parser';
 import type { Options } from './cli';
+import { promisify } from 'util';
 
-export const readdir = Promise.promisify(fs.readdir);
+export const readdir = promisify(fs.readdir);
 
 export default function setup(options: Options) {
   switch (options.linter) {
