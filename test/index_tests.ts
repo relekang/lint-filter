@@ -1,19 +1,19 @@
-import cp from "child_process";
-import path from "path";
-import { promisify } from "util";
+import cp from 'child_process';
+import path from 'path';
+import { promisify } from 'util';
 
 const execFile = promisify(cp.execFile);
-const babelPath = path.resolve(__dirname, "../node_modules/.bin/ts-node");
-const filePath = path.resolve(__dirname, "../src/index.ts");
+const babelPath = path.resolve(__dirname, '../node_modules/.bin/ts-node');
+const filePath = path.resolve(__dirname, '../src/index.ts');
 
-test("CLI should show help section for option -h", async () => {
+test('CLI should show help section for option -h', async () => {
   const output = await execFile(babelPath, [
-    "--transpile-only",
+    '--transpile-only',
     filePath,
-    "-h",
+    '-h',
   ]);
   expect(output.stdout).toContain(
-    "Usage: lint-filter [options] <subcommand|file ...>"
+    'Usage: lint-filter [options] <subcommand|file ...>'
   );
   expect(output.stdout).toMatchInlineSnapshot(`
     "Usage: lint-filter [options] <subcommand|file ...>
